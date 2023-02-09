@@ -1,9 +1,13 @@
-
+import { AppRouter } from "./routes/AppRouter";
+import { Footer } from "./ui/Footer";
+import { Navar } from "./ui/Navar";
 
 export const App = () => {
   return (
     <>
-      <h1>NO-COUNTRY</h1>
+      <Navar />
+      <AppRouter />
+      <Footer/>
     </>
-  )
-}
+  );
+};
