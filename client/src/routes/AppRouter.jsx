@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import { Contact } from "../components/Contact";
-import { CreateAccount } from "../components/CreateAccount";
-import { Home } from "../components/Home";
-import { Login } from "../components/Login";
-import { Products } from "../components/Products";
+import { CreateAccount } from "../pages/CreateAccount";
+import { Login } from "../pages/Login";
+import { Products } from "../pages/Products";
+import { Home } from "../pages/Home";
+import { Contact } from "../pages/Contact";
 
 export const AppRouter = () => {
   return (
