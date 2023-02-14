@@ -1,0 +1,45 @@
+ul{
+    color: var(--thirt);
+}
+li{
+    list-style: none;
+}
+.navar{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary);
+    width: 80%;
+    border-radius: 0.5rem;
+}
+
+.navar__account{
+    display: flex;
+    gap: 1rem;
+    padding: 12rem 1rem 1rem;
+    width: 100%;
+}
+.navar__links{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+.navar__links-one{
+    color: var(--thirt);
+    text-decoration: none;
+}
+.navar__links-prod{
+    color: var(--primary);
+    text-decoration: none;
+}
+.navar__products{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+.navar__colapsed{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    justify-content: space-around;
+}
