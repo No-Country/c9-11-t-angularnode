@@ -1,4 +1,4 @@
-import { ButtonSectionFood } from "../buttonSectionFood";
+import { ButtonSectionFood } from "../ButtonSectionFood/ButtonSectionFood";
 import "./ListButtonsSectionFood.css";
 
 const categories = ["Bebidas", "Comida", "Postres", "Extras"];
