@@ -1,3 +1,11 @@
+:root{
+    --primary:#E38B29;
+
+    --second: #FFD8A9;
+
+    --thirt: #FDEEDC;
+}
+
 *{
     margin: 0;
     padding: 0;
