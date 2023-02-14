@@ -1,9 +1,22 @@
 
 
+import { AppRouter } from "./routes/AppRouter";
+import { Footer } from "./ui/Footer";
+import { Navar } from "./ui/Navar";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+
+
 export const App = () => {
   return (
     <>
-      <h1>NO-COUNTRY</h1>
+      {/* <Navar /> */}
+      <AppRouter />
+<<<<<<< Updated upstream
+      <Footer/>
+=======
+      {/* <Footer /> */}
+>>>>>>> Stashed changes
     </>
-  )
-}
+  );
+};
