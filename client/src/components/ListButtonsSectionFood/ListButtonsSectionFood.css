@@ -1,13 +1,8 @@
 .list-buttons-section{
-    width: 75%;
+    width: 100%;
     display: grid;
-    /* place-items: center; */
-    /* align-items: center; */
-    /* place-content: center; */
-    /* justify-content: center; */
-    /* justify-items: center; */
+    place-items: center;
+    margin-top: 2.625rem;
     gap: 1rem;
     grid-template-columns: 1fr;
-
-
 }
