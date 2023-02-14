@@ -10,9 +10,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export const App = () => {
   return (
     <>
-      <Navar />
+      {/* <Navar /> */}
       <AppRouter />
+<<<<<<< Updated upstream
       <Footer/>
+=======
+      {/* <Footer /> */}
+>>>>>>> Stashed changes
     </>
   );
 };
