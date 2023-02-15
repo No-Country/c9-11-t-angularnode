@@ -14,7 +14,12 @@ export default class CategoriesService {
      * @returns {Promise<Categories[]>}
      */
     public async getAll(limit: number, page: number) {   
-        return await Categories.findAll({}, {}, { limit: limit, page: page });
+        try{
+            const res = await Categories.findAll({}, {}, { limit: limit, page: page });
+            return res;
+        }catch(err:any){
+            return {statusCode:500, message: err.message};
+        }
     }
 
 
@@ -25,7 +30,16 @@ export default class CategoriesService {
      * 
      **/
     public async getById(id: number) {     
-        return await Categories.findOne({ id: id });
+        try {
+            const res =  await Categories.findOne({ id: id });
+            if (res == null) {
+                return {statusCode:404, message: `Category ${id} not found` };
+            }
+            return res;
+        }catch(err:any){
+            return {statusCode:500, message: err.message};
+        }
+      
     }
 
     /**
@@ -35,7 +49,12 @@ export default class CategoriesService {
      *  
      * */
     public async create(category: CategoriesCreateInput) {
-        return await Categories.create(category);
+        try{
+            const res = await Categories.create(category);
+            return res;
+        }catch(err:any){
+            return {statusCode:500, message: err.message};
+        }
     }
 
 
@@ -47,7 +66,13 @@ export default class CategoriesService {
      * 
      * */
     public async update(id: number, category: CategoriesCreateInput) {
-        return await Categories.update(id, category);
+        try{
+           const res =  await Categories.update(id, category);
+           return res;
+        }catch(err:any){
+            return {statusCode:500, message: err.message};
+        }
+        
     }
 
     /**
