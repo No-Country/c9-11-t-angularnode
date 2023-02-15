@@ -1,0 +1,28 @@
+.login{
+    width: 80%;
+    height: 100vh;
+}
+.login__container{
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding-bottom: 10rem;
+    margin: 1rem;
+}
+.btn__enter{
+    color: var(--thirt);
+    height: 3rem;
+    width: 100%;
+    background-color: var(--primary);
+}
+.user{
+    display: flex;
+    flex-direction: column;
+}
+input{
+    border-radius: 0.5rem;
+    height: 3rem;
+}
+.btn__down{
+    padding-bottom: 6rem;
+}
