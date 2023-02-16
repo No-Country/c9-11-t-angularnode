@@ -1,11 +1,12 @@
 import { Router } from 'express';
-//Import routers
-import categoriesRouter from './categories.router';
 
+import categoriesRouter from './categories.router';
+import productsRouter from './products.router';
 
 const router = Router();
 
 router.use('/categories', categoriesRouter);
+router.use('/products', productsRouter);
 
 export default router;
 
