@@ -1,5 +1,5 @@
 import { AppRouter } from "./routes/AppRouter";
-import { Footer } from "./ui/Footer";
+import { Footer } from "./ui/Footer/Footer";
 import { Navar } from "./ui/Navar";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export const App = () => {
   return (
     <>
-      <Navar />
+      {/* <Navar /> */}
       <AppRouter />
       <Footer />
     </>

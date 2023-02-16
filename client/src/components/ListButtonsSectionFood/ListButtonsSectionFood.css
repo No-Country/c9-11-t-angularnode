@@ -3,6 +3,7 @@
     display: grid;
     place-items: center;
     margin-top: 2.625rem;
+    margin-bottom: 2.625rem;
     gap: 1rem;
     grid-template-columns: 1fr;
 }
