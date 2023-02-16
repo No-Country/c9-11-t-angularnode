@@ -1,4 +1,3 @@
-
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -7,14 +6,22 @@ import { NavLink } from "react-router-dom";
 import "./navar.css";
 
 export const Navar = () => {
-
-  
   return (
-    <Navbar collapseOnSelect expand="lg" className="navar">
+    <>
+
+    <Navbar collapseOnSelect expand="lg" className="navar ">
+    <div className="burger_cart">
+          <Navbar.Toggle aria-controls="responsive-navbar-nav " />
+          <img
+            src="../../assets/icon/logo.png"
+            alt="icon"
+            className="logotype"
+          />
+          <img src="" alt="icon cart" />
+        </div>
       <Container>
-        <Navbar.Toggle
-          aria-controls="responsive-navbar-nav"
-        />
+        
+
         <Navbar.Collapse id="responsive-navbar-nav" className="navar__colapsed">
           <Nav className="me-auto navar__links">
             <NavLink to="/" className="navar__links-one">
@@ -25,20 +32,31 @@ export const Navar = () => {
                 Productos
               </NavLink>
               <NavDropdown>
-              <ul id="collasible-nav-dropdown" className="navar__prod-submenu">
-                <li>
-                  <NavLink to="products" className="navar__links-prod">Bebidas</NavLink>
-                </li>
-                <li>
-                  <NavLink to="products" className="navar__links-prod">Comidas</NavLink>
-                </li>
-                <li>
-                  <NavLink to="products" className="navar__links-prod">Postres</NavLink>
-                </li>
-                <li>
-                  <NavLink to="products" className="navar__links-prod">Extras</NavLink>
-                </li>
-              </ul>
+                <ul
+                  id="collasible-nav-dropdown"
+                  className="navar__prod-submenu"
+                >
+                  <li>
+                    <NavLink to="products" className="navar__links-prod">
+                      Bebidas
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="products" className="navar__links-prod">
+                      Comidas
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="products" className="navar__links-prod">
+                      Postres
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="products" className="navar__links-prod">
+                      Extras
+                    </NavLink>
+                  </li>
+                </ul>
               </NavDropdown>
             </Nav>
 
@@ -60,5 +78,7 @@ export const Navar = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    </>
+    
   );
 };

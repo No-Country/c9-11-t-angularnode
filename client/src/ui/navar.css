@@ -8,8 +8,7 @@ li{
     display: flex;
     flex-direction: column;
     background-color: var(--primary);
-    width: 80%;
-    border-radius: 0.5rem;
+    width: 100%;
 }
 
 .navar__account{
@@ -25,8 +24,9 @@ li{
     padding: 1rem;
 }
 .navar__links-one{
-    color: var(--thirt);
+    color: black;
     text-decoration: none;
+    font-size: 20px;
 }
 .navar__links-prod{
     color: var(--primary);
@@ -40,6 +40,17 @@ li{
 .navar__colapsed{
     display: flex;
     flex-direction: column;
-    padding: 1rem;
     justify-content: space-around;
+}
+.burger_cart{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    background-color: var(--thirt);
+    height: 200px;
+}
+.logotype{
+    width: 150px;
 }
