@@ -1,5 +1,5 @@
 import { body, param, query } from 'express-validator';
-import { errorHandler } from './errorHandler.validator';
+import { errorHandler } from '../errorHandler.validator';
 
 const createCategoryValidator = [
     body('name')
