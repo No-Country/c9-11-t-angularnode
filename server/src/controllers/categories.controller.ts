@@ -17,33 +17,29 @@ const getAll = async (req: Request, res: Response) => {
     if (page == null) page = 1;
     let limit = query.limit;
     if (limit == null) limit = 10;
-    const categories = await service.getAll(limit, page);
-    res.json(categories);
+    const {statusCode,response} =  await service.getAll(limit, page);
+    res.status(statusCode).json(response);
 }
 
 const getById = async (req: Request, res: Response) => {
-    let category = await service.getById(parseInt(req.params.id));
-    res.json(category);
+    const {statusCode,response} = await service.getById(parseInt(req.params.id));
+    res.status(statusCode).json(response);
 }
 
 const create = async (req: Request, res: Response) => {
-    let category = await service.create(req.body);
-    res.json(category);
+    const {statusCode,response} = await service.create(req.body);
+    res.status(statusCode).json(response);
 }
 
 
 const update = async (req: Request, res: Response) => {
-    let category = await service.update(parseInt(req.params.id), req.body);
-    res.json(category);
+    const {statusCode,response} = await service.update(parseInt(req.params.id), req.body);
+    res.status(statusCode).json(response);
 }
 
 const remove = async (req: Request, res: Response) => {
-    const category = await service.delete(parseInt(req.params.id));
-    if (category.statusCode) { 
-        res.status(category.statusCode).json({ message: category.message }); }
-    else {
-        res.json(category);
-    }
+    const {statusCode,response} = await service.delete(parseInt(req.params.id));
+    res.status(statusCode).json(response);
 
 }
 

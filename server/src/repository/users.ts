@@ -20,8 +20,6 @@ type Model = ModelStructure[typeof MODELS_NAME.USERS];
 
 
 class Users extends BaseRepository(MODELS_NAME.USERS) {
-
-
 }
 
 export default Users

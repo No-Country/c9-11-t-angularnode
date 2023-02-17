@@ -13,7 +13,7 @@ type Update = ModelTypes[typeof MODELS_NAME.ROLE]['Update'];
 type Cursor = ModelTypes[typeof MODELS_NAME.ROLE]['Cursor'];
 type Order = ModelTypes[typeof MODELS_NAME.ROLE]['Order'];
 type Delegate = ModelTypes[typeof MODELS_NAME.ROLE]['Delegate'];
-type GroupBy = ModelStructure[typeof MODELS_NAME.ROLE]['GroupBy'];
+//type GroupBy = ModelStructure[typeof MODELS_NAME.ROLE]['GroupBy'];
 type Scalar = ModelScalarFields<typeof MODELS_NAME.ROLE>;
 type Model = ModelStructure[typeof MODELS_NAME.ROLE];
 /*  eslint-enable @typescript-eslint/no-unused-vars */
