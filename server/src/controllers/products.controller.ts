@@ -29,8 +29,12 @@ const getProduct = async (req: Request, res: Response) => {
 }
 
 const createProduct = async (req: Request, res: Response) => {
-  const product = req.body;
-  let newProduct = await productService.createProduct(product);
+  if(!req.files) return;
+
+  let newProduct = await productService.createProduct({
+    ...req.body,
+    image: req.files.image,
+  });
   res.json(newProduct);
 }
 
