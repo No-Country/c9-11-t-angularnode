@@ -1,4 +1,6 @@
 import Categories from "../repository/categories";
+import ResponseParse from "../utils/response.parser";
+import ErrorService from "./error.service";
 
 type CategoriesCreateInput = {
     name: string,
@@ -16,9 +18,9 @@ export default class CategoriesService {
     public async getAll(limit: number, page: number) {   
         try{
             const res = await Categories.findAll({}, {}, { limit: limit, page: page });
-            return res;
+            return ResponseParse(200, res);
         }catch(err:any){
-            return {statusCode:500, message: err.message};
+            return ResponseParse(500,new ErrorService(err)) //{statusCode:500, message: err.message};
         }
     }
 
@@ -33,11 +35,12 @@ export default class CategoriesService {
         try {
             const res =  await Categories.findOne({ id: id });
             if (res == null) {
-                return {statusCode:404, message: `Category ${id} not found` };
+                return ResponseParse(404,`Category ${id} not found`);
             }
-            return res;
+            return ResponseParse(200,res);
         }catch(err:any){
-            return {statusCode:500, message: err.message};
+            return ResponseParse(500,new ErrorService(err)) //
+            
         }
       
     }
@@ -51,9 +54,9 @@ export default class CategoriesService {
     public async create(category: CategoriesCreateInput) {
         try{
             const res = await Categories.create(category);
-            return res;
+            return ResponseParse(201,res);
         }catch(err:any){
-            return {statusCode:500, message: err.message};
+            return ResponseParse(500,new ErrorService(err)) 
         }
     }
 
@@ -68,9 +71,12 @@ export default class CategoriesService {
     public async update(id: number, category: CategoriesCreateInput) {
         try{
            const res =  await Categories.update(id, category);
-           return res;
+        return ResponseParse(200,res);
         }catch(err:any){
-            return {statusCode:500, message: err.message};
+            if(err.code == "P2025"){
+                return ResponseParse(404,`Category ${id} not found`);
+            }
+           return ResponseParse(500,new ErrorService(err))
         }
         
     }
@@ -85,12 +91,12 @@ export default class CategoriesService {
         try{
             const repoResponse = await Categories.delete(id);
             if (repoResponse.count == 0) {
-                return {statusCode:404, message: `Category ${id} not found` };
+                return ResponseParse(404,`Category ${id} not found`);
             }
-            return { message: `Category ${id} deleted`}
+            return ResponseParse(200, "Category deleted");
             
         }catch(err: any){
-            return {statusCode:500, message: err.message};
+            return ResponseParse(500,new ErrorService(err))
         }
         
     }
