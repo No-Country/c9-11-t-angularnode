@@ -1,4 +1,5 @@
 import productsRepository from "../repository/products";
+import cloudinary from "../utils/cloudinary";
 
 type Category = {
   id: number;
@@ -12,7 +13,7 @@ type ProductRead = {
   description: string;
   price: number;
   imageUrl: string;
-  isActive: boolean;
+  isActive?: boolean;
   discount: number;
   categoryId: number;
   //category: Category;
@@ -22,7 +23,7 @@ type ProductWrite = {
   title: string;
   description: string;
   price: number;
-  imageUrl: string;
+  image: File;
   isActive: boolean;
   discount: number;
   categoryId: number;
@@ -74,10 +75,10 @@ export default class ProductsService {
 
   /**
    * Get products by category
-   * @param categoryId 
-   * @param limit 
-   * @param page 
-   * @returns 
+   * @param categoryId
+   * @param limit
+   * @param page
+   * @returns
    */
   public async getProductsByCategory(categoryId: number, limit: number, page: number) {
     try {
@@ -98,14 +99,24 @@ export default class ProductsService {
     * @returns { Promise<ProductRead> }
     *
   **/
-  public async createProduct(product: ProductWrite) {
+  public async createProduct(product: any) {
     try {
-      const newProduct = await productsRepository.create(product);
+      const { image, ...productData } = product;
+
+      const uploadedResult = await cloudinary.uploader.upload(image.tempFilePath, {
+        upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
+      });
+
+      const newProduct = await productsRepository.create({
+        ...productData,
+        imageUrl: uploadedResult.secure_url,
+      });
+
       return newProduct;
     } catch (error: any) {
       return {
         statusCode: 500,
-        message: error.message
+        message: `Error in service create product: ${ error.message }`
       };
     }
   }
