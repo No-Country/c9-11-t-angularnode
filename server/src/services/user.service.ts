@@ -92,7 +92,7 @@ class UsersService {
         } catch (err: any) {
 
             if (err.code == 'P2002' && err.meta.target.includes('email')) {
-                return ResponseParse(400, "Email already exists")
+                return ResponseParse(409, "Email already exists")
             }
             return ResponseParse(500, new ErrorService(err)) //{statusCode:500, message: err.message};
         }
