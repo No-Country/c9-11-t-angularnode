@@ -9,12 +9,58 @@
     padding-bottom: 10rem;
     margin: 1rem;
 }
+
+
+.login__title{
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    font-family:'Roboto'
+}
+
+.login__title h5{
+    font-size: 1.2rem;
+    color:#000;
+    font-weight: 400;
+    
+    font-family:'Roboto';
+   background: var(--second);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.loginForm{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    background-color: var(--secondary);
+    font-family:'Roboto'
+}
+
+.loginForm input {
+    padding:0.5rem;
+    border: 1px solid var(--primary);
+}
 .btn__enter{
     color: var(--thirt);
     height: 3rem;
+    font-size: 1.2rem;
     width: 100%;
     background-color: var(--primary);
+    border-radius: 0.5rem;
+    border:0;
+    transition:.3s;
 }
+
+.btn__enter:hover{
+    font-size: 1.2rem;
+    background-color: var(--second);
+    color: var(--thirt);
+}
+
+
 .user{
     display: flex;
     flex-direction: column;
