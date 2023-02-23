@@ -4,60 +4,79 @@ import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import "./styles/login.css";
+import userlogo from "../assets/icon/userlogo.png"
+import axios from "axios";
+import { toast } from 'react-toastify';
+
 
 export const Login = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
-  const submit = (data) => {
-    axios
-      .post("https://nc-api-c911t.gpamic.ar/api/v1/login", data)
-      .then((res) => {
-        navigate("/", {
-          replace: true,
-        });
-        localStorage.setItem("token", res.data);
-      })
-      .catch((error) => {
+  const onFormSubmit = (data) =>{
+     axios
+     .post("https://nc-api-c911t.gpamic.ar/api/v1/login", data)
+     .then((res) => {
+      localStorage.setItem("token", res.data.token);
+      toast.success("Bienvenido");
+       navigate("/", {
+         replace: true,
+       });
+      
+     })
+     .catch((error) => {
         console.log(error);
-      });
+
+        toast.error("Usuario o contraseña incorrectos");
+     });
+  
+  }
+    
+  
+
+  const onErrors = (errors) => {
+    console.log(errors);
   };
+
+
 
   const [show, setShow] = useState(true);
 
   const handleClose = () => setShow(!show);
 
   return (
-    <>
-      <form className="login" onSubmit={handleSubmit(submit)}>
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton></Modal.Header>
-          <Modal.Body className="login__container">
-            <button className="btn btn__enter">Acceso Administrador</button>
-            <div className="user">
-              <label>Mail</label>
-              <input
-                type="text"
-                placeholder="Enter email"
-                {...register("email")}
-              />
-            </div>
-            <div className="user">
-              <label>Contraseña</label>
-              <input
-                type="password"
-                {...register("password")}
-                placeholder="password"
-              />
-            </div>
-          </Modal.Body>
-          <Modal.Footer className="btn__down">
-            <Button className="btn btn__enter " type="submit">
-              Ingresar
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </form>
-    </>
+
+    <form className="loginForm" onSubmit={handleSubmit(onFormSubmit, onErrors)}>
+
+
+      <div className="login__title">
+        <h5> <img src={userlogo} alt="userlogo" /> Iniciar sesión</h5>
+      </div>
+
+      <div className="user">
+        <label>Mail</label>
+        <input
+          type="text"
+          placeholder="Enter email"
+          {...register("email")}
+        />
+      </div>
+      <div className="user">
+        <label>Contraseña</label>
+        <input
+          type="password"
+          {...register("password")}
+          placeholder="password"
+        />
+      </div>
+
+      
+        <button className="btn__enter" type="submit">
+          Ingresar
+        </button>
+      
+
+    </form>
+
   );
 };
