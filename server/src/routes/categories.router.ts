@@ -1,13 +1,18 @@
 import { Router } from 'express';
 import categoryController from '../controllers/categories.controller';
-import validator from '../middlewares/categories.validator';
+import validator from '../middlewares/validations/categories.validator';
+import authMiddleware from '../middlewares/security/auth.middleware';
+import isAdmin from '../middlewares/security/isAdmin.middleware';
 
 //Create categories router.
 const categoriesRouter = Router();
 
-//GET all categories
-categoriesRouter.get('/',validator.getAllCategoriesValidator,categoryController.getAll);     
 
+//GET all categories
+categoriesRouter.get('/',validator.getAllCategoriesValidator,categoryController.getAll); 
+
+//Protect all routes after this middleware
+categoriesRouter.use(authMiddleware,isAdmin);
 //GET a category by id
 categoriesRouter.get('/:id',validator.getByIdCategoryValidator,categoryController.getById);
 

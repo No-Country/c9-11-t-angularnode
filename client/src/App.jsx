@@ -9,7 +9,7 @@ export const App = () => {
     <>
       {/* <Navar /> */}
       <AppRouter />
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
