@@ -1,5 +1,6 @@
 import productsRepository from "../repository/products";
 import cloudinary from "../utils/cloudinary";
+import ResponseParse from "../utils/response.parser";
 
 type Category = {
   id: number;
@@ -40,13 +41,11 @@ export default class ProductsService {
   **/
   public async getProducts(limit: number, page: number) {
     try {
-      return await productsRepository.findAll({}, {}, { limit: limit, page: page });
+      const products = await productsRepository.findAll({}, {}, { limit: limit, page: page });
 
+      return ResponseParse(200, products);
     } catch (error: any) {
-      return {
-        statusCode: 500,
-        message: error.message
-      };
+      return ResponseParse(500, `Error in product service: ${error.message}`);
     }
   }
 
@@ -61,15 +60,12 @@ export default class ProductsService {
       const product = await productsRepository.findOne({ id: id });
 
       if (!product) {
-        return { statusCode: 404, message: 'Product could not be found' };
+        return ResponseParse(404, `Product with id ${id} not found`);
       }
-      return product;
+      return ResponseParse(200, product);
 
     } catch (error: any) {
-      return {
-        statusCode: 500,
-        message: error.message
-      };
+      return ResponseParse(500, `Error in product service: ${error.message}`);
     }
   }
 
@@ -83,12 +79,10 @@ export default class ProductsService {
   public async getProductsByCategory(categoryId: number, limit: number, page: number) {
     try {
       const repoResponse = await productsRepository.findAll({ categoryId: categoryId }, {}, { limit: limit, page: page });
-      return repoResponse;
+      return ResponseParse(200, repoResponse);
     } catch (error: any) {
-      return {
-        statusCode: 500,
-        message: error.message
-      };
+      
+      return ResponseParse(500, `Error in get products by category service: ${error.message}`);
     }
   }
 
@@ -103,21 +97,26 @@ export default class ProductsService {
     try {
       const { image, ...productData } = product;
 
+
       const uploadedResult = await cloudinary.uploader.upload(image.tempFilePath, {
         upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
+
       });
+
+      productData.categoryId = parseInt(productData.categoryId);
+      productData.price = parseFloat(productData.price);
+      productData.discount = parseFloat(productData.discount);
+      productData.isActive = productData.isActive == 'true' ? true : false;
+
 
       const newProduct = await productsRepository.create({
         ...productData,
         imageUrl: uploadedResult.secure_url,
       });
 
-      return newProduct;
+      return ResponseParse(201, newProduct);
     } catch (error: any) {
-      return {
-        statusCode: 500,
-        message: `Error in service create product: ${ error.message }`
-      };
+      return ResponseParse(500, `Error in create product service: ${error.message}`);
     }
   }
 
@@ -131,12 +130,9 @@ export default class ProductsService {
   public async updateProduct(id: number, product: ProductWrite) {
     try {
       const updatedProduct = await productsRepository.update(id, product);
-      return updatedProduct;
+      return ResponseParse(200, updatedProduct);
     } catch (error: any) {
-      return {
-        statusCode: 500,
-        message: error.message
-      };
+      return ResponseParse(500, `Error in update product service: ${error.message}`);
     }
   }
 
@@ -150,17 +146,11 @@ export default class ProductsService {
     try {
       const repoResponse = await productsRepository.delete(id);
       if (repoResponse.count == 0) {
-        return {
-          statusCode: 404,
-          message: 'Product could not be found'
-        };
+        return ResponseParse(404, `Product with id ${id} not found`);
       }
-      return { message: 'Product was successfully deleted' }
+      return ResponseParse(200, `Product with id ${id} deleted`);
     } catch (error: any) {
-      return {
-        statusCode: 500,
-        message: error.message
-      };
+      return ResponseParse(500, `Error in delete product service: ${error.message}`);
     }
   }
 }
