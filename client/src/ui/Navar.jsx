@@ -3,83 +3,111 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from "react-router-dom";
+import Accordion from "react-bootstrap/Accordion";
+
+import cart from "../assets/icon/cart.png";
+import logo from "../assets/icon/logo.png";
+import burger from "../assets/icon/burger.png";
+
 import "./navar.css";
+import { useAccordionButton } from "react-bootstrap";
+
+function NavProducts({ eventKey }) {
+  const decoratedOnClick = useAccordionButton(eventKey, () =>
+    console.log("totally custom!")
+  );
+
+  return (
+    <button type="button" onClick={decoratedOnClick}>
+      Products
+    </button>
+  );
+}
+
+const categories = ["Bebidas", "Comida", "Postres", "Extras"];
+
+const NavProductsItems = ({ eventKey }) => {
+  return (
+    <Accordion>
+      <NavProducts eventKey={eventKey} />
+      <Accordion.Collapse eventKey={eventKey}>
+        <ul className="navbar__product__list">
+          {categories.map((category, index) => {
+            return (
+              <li className="navbar__product__item" key={index}>
+                <NavLink to={category} className="link">
+                  {category}
+                </NavLink>
+              </li>
+            );
+          })}
+        </ul>
+      </Accordion.Collapse>
+    </Accordion>
+  );
+};
+
+const ButtonBurger = () => {
+  return (
+    <Navbar.Toggle
+      aria-controls="responsive-navbar-nav"
+      style={{ border: "none" }}
+    >
+      <button arial-aria-controls="responsive-navbar-nav" className="burger">
+        <img src={burger} alt="burger button" width={24} height={24} />
+      </button>
+    </Navbar.Toggle>
+  );
+};
 
 export const Navar = () => {
   return (
     <>
-
-    <Navbar collapseOnSelect expand="lg" className="navar ">
-    <div className="burger_cart">
-          <Navbar.Toggle aria-controls="responsive-navbar-nav " />
-          <img
-            src="../../assets/icon/logo.png"
-            alt="icon"
-            className="logotype"
-          />
-          <img src="" alt="icon cart" />
+      <Navbar style={{ padding: 0, zIndex: 10 }} collapseOnSelect expand="lg">
+        <div className="navbar__container">
+          <ButtonBurger />
+          <img src={logo} alt="icon" width={64} height={64} />
+          <img src={cart} alt="icon cart" />
         </div>
-      <Container>
-        
-
-        <Navbar.Collapse id="responsive-navbar-nav" className="navar__colapsed">
-          <Nav className="me-auto navar__links">
-            <NavLink to="/" className="navar__links-one">
-              Inicio
-            </NavLink>
-            <Nav className="navar__products">
-              <NavLink to="products" className="navar__links-one">
-                Productos
-              </NavLink>
-              <NavDropdown>
-                <ul
-                  id="collasible-nav-dropdown"
-                  className="navar__prod-submenu"
-                >
-                  <li>
-                    <NavLink to="products" className="navar__links-prod">
-                      Bebidas
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="products" className="navar__links-prod">
-                      Comidas
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="products" className="navar__links-prod">
-                      Postres
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="products" className="navar__links-prod">
-                      Extras
-                    </NavLink>
-                  </li>
-                </ul>
-              </NavDropdown>
-            </Nav>
-
-            <NavLink to="contact" className="navar__links-one">
-              Contacto
-            </NavLink>
-            <NavLink to="/" className="navar__links-one">
-              Mi Perfil
-            </NavLink>
+        <Navbar.Collapse id="responsive-navbar-nav" className="navar__collapse">
+          <Nav className="navbar__container__header__collapse">
+            <ButtonBurger />
           </Nav>
-          <Nav className="navar__account">
-            <NavLink to="login" className="navar__links-one">
+
+          <Nav className="navbar__container__main__collapse">
+            <ul className="navbar__list">
+              <li className="navbar__list__item">
+                <NavLink to="/" className="link">
+                  Inicio
+                </NavLink>
+              </li>
+              <li className="navbar__list__item">
+                <NavProductsItems eventKey="0" />
+              </li>
+              <li className="navbar__list__item">
+                <NavLink to="contact" className="link">
+                  Contacto
+                </NavLink>
+              </li>
+              <li className="navbar__list__item">
+                <NavLink to="profile" className="link">
+                  Perfil
+                </NavLink>
+              </li>
+            </ul>
+          </Nav>
+
+          <div className="navbar__container__footer__collapse">
+            <NavLink to="login" className="link">
               Iniciar Sesión
+            </NavLink>{" "}
+            <span className="link">|</span>{" "}
+            <NavLink to="register" className="link">
+              Crear cuenta
             </NavLink>
-            <NavLink to="createAccount" className="navar__links-one">
-              Crear Cuenta
-            </NavLink>
-          </Nav>
+          </div>
         </Navbar.Collapse>
-      </Container>
-    </Navbar>
+      </Navbar>
     </>
-    
   );
 };
-
