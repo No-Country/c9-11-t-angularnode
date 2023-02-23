@@ -18,7 +18,7 @@ function NavProducts({ eventKey }) {
   );
 
   return (
-    <button type="button" onClick={decoratedOnClick}>
+    <button className="buttonProd" type="button" onClick={decoratedOnClick}>
       Products
     </button>
   );
@@ -28,13 +28,13 @@ const categories = ["Bebidas", "Comida", "Postres", "Extras"];
 
 const NavProductsItems = ({ eventKey }) => {
   return (
-    <Accordion>
+    <Accordion >
       <NavProducts eventKey={eventKey} />
       <Accordion.Collapse eventKey={eventKey}>
-        <ul className="navbar__product__list">
+        <ul className="navbar__product__list prod">
           {categories.map((category, index) => {
             return (
-              <li className="navbar__product__item" key={index}>
+              <li className="navbar__product__item prod" key={index}>
                 <NavLink to={`/products/${category}`} className="link">
                   {category}
                 </NavLink>
