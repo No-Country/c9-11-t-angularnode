@@ -7,9 +7,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export const App = () => {
   return (
     <>
-      {/* <Navar /> */}
+      <Navar />
       <AppRouter />
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };
