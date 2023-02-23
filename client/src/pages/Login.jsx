@@ -10,7 +10,7 @@ export const Login = () => {
   const onSubmit = async (data) => {
  
     
-     axios
+    await axios
       .post("https://nc-api-c911t.gpamic.ar/api/v1/login", data)
       .then((res) => {
         navigate("/", {

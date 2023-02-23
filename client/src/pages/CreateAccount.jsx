@@ -14,9 +14,9 @@ export const CreateAccount = () => {
 
   const navigate = useNavigate();
 
-const submit = (data) => {
+const submit = async (data) => {
   console.log(data)
-  axios
+ await axios
     .post("https://nc-api-c911t.gpamic.ar/api/v1/register", data)
     .then((res) => {
       navigate("/");
