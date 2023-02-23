@@ -22,31 +22,34 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     let limit = query.limit;
     if (limit == null)
         limit = 10;
-    const products = yield productService.getProducts(limit, page);
-    res.json(products);
+    let categoryId = query.categoryId;
+    let products;
+    if (categoryId == null) {
+        products = yield productService.getProducts(limit, page);
+    }
+    else {
+        products = yield productService.getProductsByCategory(parseInt(categoryId), limit, page);
+    }
+    res.status(products.statusCode).json(products.response);
 });
 const getProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = parseInt(req.params.id);
     let product = yield productService.getProductById(id);
-    res.json(product);
+    res.status(product.statusCode).json(product.response);
 });
 const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const product = req.body;
-    let newProduct = yield productService.createProduct(product);
-    res.json(newProduct);
+    if (!req.files)
+        return;
+    let { statusCode, response } = yield productService.createProduct(Object.assign(Object.assign({}, req.body), { image: req.files.image }));
+    res.status(statusCode).json(response);
 });
 const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let updatedProduct = yield productService.updateProduct(parseInt(req.params.id), req.body);
-    res.json(updatedProduct);
+    let { statusCode, response } = yield productService.updateProduct(parseInt(req.params.id), req.body);
+    res.status(statusCode).json(response);
 });
 const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const resp = yield productService.deleteProduct(parseInt(req.params.id));
-    if (resp.statusCode) {
-        res.status(resp.statusCode).json({ message: resp.message });
-    }
-    else {
-        res.json(resp);
-    }
+    const { statusCode, response } = yield productService.deleteProduct(parseInt(req.params.id));
+    res.status(statusCode).json(response);
 });
 exports.default = {
     getProducts,
