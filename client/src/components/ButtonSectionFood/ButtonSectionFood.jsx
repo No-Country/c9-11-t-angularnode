@@ -12,7 +12,13 @@ export const ButtonSectionFood = ({ textButton }) => {
         <Button
           variant="outline-secondary"
           size="lg"
-          style={{ width: "320px", height: "70px" }}
+          style={{
+            width: "320px",
+            height: "70px",
+            backgroundColor: "var(--second)",
+            color: "black",
+            border: "1px solid var(--primary)",
+          }}
         >
           {textButton}
         </Button>

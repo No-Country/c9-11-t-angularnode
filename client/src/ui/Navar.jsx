@@ -2,7 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 
 import cart from "../assets/icon/cart.png";
@@ -35,7 +35,7 @@ const NavProductsItems = ({ eventKey }) => {
           {categories.map((category, index) => {
             return (
               <li className="navbar__product__item" key={index}>
-                <NavLink to={category} className="link">
+                <NavLink to={`/products/${category}`} className="link">
                   {category}
                 </NavLink>
               </li>
@@ -66,7 +66,9 @@ export const Navar = () => {
       <Navbar style={{ padding: 0, zIndex: 10 }} collapseOnSelect expand="lg">
         <div className="navbar__container">
           <ButtonBurger />
-          <img src={logo} alt="icon" width={64} height={64} />
+          <Link to={"/"}>
+            <img src={logo} alt="icon" width={64} height={64} />
+          </Link>
           <img src={cart} alt="icon cart" />
         </div>
         <Navbar.Collapse id="responsive-navbar-nav" className="navar__collapse">
