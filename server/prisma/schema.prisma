@@ -50,8 +50,17 @@ model Categories {
   id Int @id @default(autoincrement())
   name        String
   description String
+  section   Section  @default(FOODS)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   products Products[]
+}
+
+
+enum Section {
+  FOODS
+  DRINKS
+  DESSERTS
+  EXTRAS
 }

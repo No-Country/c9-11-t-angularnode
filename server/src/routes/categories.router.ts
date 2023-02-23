@@ -16,6 +16,8 @@ categoriesRouter.use(authMiddleware,isAdmin);
 //GET a category by id
 categoriesRouter.get('/:id',validator.getByIdCategoryValidator,categoryController.getById);
 
+categoriesRouter.get('/section/:section',validator.getCategoriesBySectionValidator,categoryController.getBySection);
+
 //POST a new category
 categoriesRouter.post('/',validator.createCategoryValidator, categoryController.create);
 
