@@ -1,0 +1,11 @@
+.footer{
+    background-color: var(--third);
+    display: flex;
+    justify-content: end;
+    padding: 1rem;
+}
+
+.footer__btn{
+    background-color: transparent;
+    border: none;
+}
