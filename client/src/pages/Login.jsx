@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 import "./styles/login.css";
 
 export const Login = () => {
   const { register, handleSubmit } = useForm();
-  const navigate = useNavigate();
 
-  const submit = (data) => {
-    axios
+  const onSubmit = async (data) => {
+ 
+    
+     axios
       .post("https://nc-api-c911t.gpamic.ar/api/v1/login", data)
       .then((res) => {
         navigate("/", {
@@ -19,7 +19,9 @@ export const Login = () => {
         localStorage.setItem("token", res.data);
       })
       .catch((error) => {
-        console.log(error);
+        if (error) {
+          alert("Credenciales incorrectas");
+        } 
       });
   };
 
@@ -29,33 +31,28 @@ export const Login = () => {
 
   return (
     <>
-      <form className="login" onSubmit={handleSubmit(submit)}>
+      <form className="login">
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton></Modal.Header>
           <Modal.Body className="login__container">
-            <button className="btn btn__enter">Acceso Administrador</button>
+            <label className="btn btn__enter">Acceso Administrador</label>
             <div className="user">
               <label>Mail</label>
               <input
-                type="text"
+                type="email"
                 placeholder="Enter email"
                 {...register("email")}
               />
             </div>
             <div className="user">
               <label>Contraseña</label>
-              <input
-                type="password"
-                {...register("password")}
-                placeholder="password"
-              />
+              <input placeholder="password" {...register("password")} />
+            </div>
+              <div className="user">
+              <input type="submit" value="Ingresar" onClick={handleSubmit(onSubmit)} />
             </div>
           </Modal.Body>
-          <Modal.Footer className="btn__down">
-            <Button className="btn btn__enter " type="submit">
-              Ingresar
-            </Button>
-          </Modal.Footer>
+      
         </Modal>
       </form>
     </>

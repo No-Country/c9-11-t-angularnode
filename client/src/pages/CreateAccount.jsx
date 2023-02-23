@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 import './styles/login.css';
 
 
@@ -14,6 +15,7 @@ export const CreateAccount = () => {
   const navigate = useNavigate();
 
 const submit = (data) => {
+  console.log(data)
   axios
     .post("https://nc-api-c911t.gpamic.ar/api/v1/register", data)
     .then((res) => {
@@ -21,9 +23,7 @@ const submit = (data) => {
       localStorage.setItem("token", res.data); 
     })
     .catch((error) => {
-      if (error) {
-        alert("Credenciales incorrectas");
-      } 
+     console.log(error)
     });
 };
 
@@ -32,7 +32,7 @@ const submit = (data) => {
   const handleClose = () => setShow(!show);
   return (
     <>
-      <form className="login" onSubmit={handleSubmit(submit)}>
+      <form className="login">
         <Modal show={show} onHide={handleClose}>
 
         <Modal.Header closeButton>
@@ -71,7 +71,7 @@ const submit = (data) => {
           </div>
           </Modal.Body>
           <Modal.Footer className="btn__down">
-            <Button className="btn btn__enter " type="submit">
+            <Button className="btn btn__enter " type="submit" onClick={handleSubmit(submit)}>
               Ingresar
             </Button>
           </Modal.Footer> 
