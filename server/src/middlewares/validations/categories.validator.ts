@@ -13,6 +13,12 @@ const createCategoryValidator = [
     .withMessage('Description is required')
     .isLength({ min: 3, max: 255 })
     .withMessage('Description must be between 3 and 255 characters'),
+    body('section')
+    .optional()
+    .notEmpty()
+    .isString()
+    .isIn(['FOODS', 'DRINKS', 'EXTRAS','DESSERTS'])
+    .withMessage('Section must be FOODS, DRINKS, EXTRAS or DESSERTS'),
     errorHandler
 ];
 
@@ -25,6 +31,12 @@ const updateCategoryValidator = [
     .withMessage("Description can't be null")
     .isLength({ min: 3, max: 255 })
     .withMessage("Description must be between 3 and 255 characters"),
+    body('section')
+    .optional()
+    .notEmpty()
+    .isString()
+    .isIn(['FOODS', 'DRINKS', 'EXTRAS','DESSERTS'])
+    .withMessage('Section must be FOODS, DRINKS, EXTRAS or DESSERTS'),
     errorHandler
 ];
 
@@ -33,6 +45,14 @@ const getAllCategoriesValidator = [
     query('limit').isInt().optional(),
     errorHandler
 ];
+
+
+const getCategoriesBySectionValidator = [
+    param('section').isString().notEmpty()
+    .isIn(['FOODS', 'DRINKS', 'EXTRAS','DESSERTS'])
+    .withMessage('Section must be FOODS, DRINKS, EXTRAS or DESSERTS'),
+    errorHandler
+]
 
 const getByIdCategoryValidator = [
     param('id').isInt(),
@@ -46,5 +66,5 @@ const deleteCategoryValidator = [
 
 
 
-export default { createCategoryValidator,updateCategoryValidator,deleteCategoryValidator,getAllCategoriesValidator,getByIdCategoryValidator };
+export default { createCategoryValidator,updateCategoryValidator,deleteCategoryValidator, getCategoriesBySectionValidator ,getAllCategoriesValidator,getByIdCategoryValidator };
 

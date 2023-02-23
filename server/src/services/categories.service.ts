@@ -1,10 +1,12 @@
+import { Section } from "@prisma/client";
 import Categories from "../repository/categories";
 import ResponseParse from "../utils/response.parser";
 import ErrorService from "./error.service";
 
 type CategoriesCreateInput = {
     name: string,
-    description: string };
+    description: string,
+    section?: Section };
 
 export default class CategoriesService {
 
@@ -44,6 +46,27 @@ export default class CategoriesService {
         }
       
     }
+
+
+    /**
+     * Find categories by section
+     */
+    public async getBySection(section: Section) {
+        try{
+           
+            const res = await Categories.findAll({section:section},{},{});
+            
+            if (res == null) {
+                return ResponseParse(404,`${section} doesn't have categories`);
+            }
+            return ResponseParse(200,res);
+        }catch(err:any){
+            return ResponseParse(500,new ErrorService(err))
+
+        }
+    }
+
+
 
     /**
      * Create a new category

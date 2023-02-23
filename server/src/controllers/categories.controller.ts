@@ -1,4 +1,5 @@
 //Category controller
+import { Section } from '@prisma/client';
 import { Request, Response } from 'express';
 import CategoriesService from '../services/categories.service';
 const service = new CategoriesService();
@@ -26,6 +27,12 @@ const getById = async (req: Request, res: Response) => {
     res.status(statusCode).json(response);
 }
 
+const getBySection = async (req: Request, res: Response) => {
+    const param = req.params.section as Section
+    const {statusCode,response} = await service.getBySection(param);
+    res.status(statusCode).json(response);
+}
+
 const create = async (req: Request, res: Response) => {
     const {statusCode,response} = await service.create(req.body);
     res.status(statusCode).json(response);
@@ -44,6 +51,6 @@ const remove = async (req: Request, res: Response) => {
 }
 
 
-export default { getAll, getById, create, update, remove };
+export default { getAll, getById,getBySection, create, update, remove };
 
 
