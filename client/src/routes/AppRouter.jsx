@@ -4,6 +4,9 @@ import { Login } from "../pages/Login";
 import { Products } from "../pages/Products";
 import { Home } from "../pages/Home";
 import { Contact } from "../pages/Contact";
+import { logout } from "../hooks/useAuth";
+import { AdminPage } from "../pages/AdminPage";
+
 
 export const AppRouter = () => {
   return (
@@ -13,8 +16,10 @@ export const AppRouter = () => {
         <Route path="/" element={<Home />} />
         <Route path="products/:category" element={<Products />} />
         <Route path="contact" element={<Contact />} />
-        <Route path="register" element={<CreateAccount />} />
+        <Route path="register" element={<CreateAccount />} /> 
+        <Route path="/admin" element={<AdminPage/>} />
         <Route path="/*" element={<Home />} />
+       
       </Routes>
     </>
   );

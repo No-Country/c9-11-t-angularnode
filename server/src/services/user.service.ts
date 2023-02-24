@@ -1,4 +1,5 @@
 import Users from "../repository/users";
+import Roles from "../repository/role";
 import bcrypt from "bcrypt";
 import JWTService from "./jwt.service";
 import ResponseParse from "../utils/response.parser";
@@ -13,6 +14,15 @@ type User = {
     phone?: string;
     address?: string;
     roleId: number;
+}
+
+type UserMe = {
+    id: number;
+    name: string;
+    email: string;
+    phone?: string;
+    address?: string;
+    roleName: string;
 }
 
 type UserInput = {
@@ -72,6 +82,43 @@ class UsersService {
 
         } catch (err: any) {
             return new ErrorService(err)
+        }
+    }
+
+    public async updateMe(id: number, user: any) {
+        try {
+            //prevent user from changing role
+            if(user.roleId){
+                delete user.roleId;
+            }
+            //prevent user from changing isActive
+            if(user.isActive){
+                delete user.isActive;
+            }
+            // if password is not null, hash it
+            if (user.password){
+                user.password = await this.hashPassword(user.password);
+            }
+
+            const usr = await Users.update(id, user);
+            const Role = await Roles.findOne({ id: usr.roleId })
+
+           
+            const usrMe = {
+                id: usr.id,
+                name: usr.name,
+                email: usr.email,
+                phone: usr.phone,
+                address: usr.address,
+                //@ts-ignore
+                roleName:Role.name.toUpperCase(),
+                profileIcon: usr.profileIcon
+            }
+
+
+            return ResponseParse(200, usrMe);
+        } catch (err: any) {
+            return ResponseParse(500, new ErrorService(err))//{statusCode:500, message: err.message};
         }
     }
 
@@ -136,6 +183,41 @@ class UsersService {
     /**
      * 
      */
+
+
+
+    public async getMe(id: number) {
+
+        
+        try {
+            const usr = await Users.findOne({ id: id, isActive: true });
+
+            if (usr == null) {
+                return ResponseParse(404, "User not found");
+            } else {
+                const Role = await Roles.findOne({ id: usr.roleId })
+                if (Role != null) {
+                    const usrMe = {
+                        id: usr.id,
+                        name: usr.name,
+                        email: usr.email,
+                        phone: usr.phone,
+                        address: usr.address,
+                        roleName:Role.name.toUpperCase(),
+                        profileIcon: usr.profileIcon
+                    }
+                    
+                    return ResponseParse(200, usrMe);
+                } else {
+                    return ResponseParse(404, "Role not found");
+                }
+            }
+
+        } catch (err: any) {
+            return ResponseParse(500, new ErrorService(err));
+        }
+    }
+
 
 
 

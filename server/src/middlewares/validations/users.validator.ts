@@ -64,11 +64,24 @@ const updateUserValidator = [
     body('email').optional().isEmail().withMessage('Invalid email'),
     body('password').optional().isString().withMessage('Password must be a string'),
     body('password').optional().isStrongPassword(strongPasswordOptions).withMessage('Password must contain at least one uppercase letter, one lowercase letter, one number and be at least 5 characters long'),
+    body('profileIcon').optional().isIn(['ICON_1','ICON_2','ICON_3','ICON_4','ICON_5','ICON_6','ICON_7','ICON_8','ICON_9']),
     body('name').optional().isString(),
     body('phone').optional().isString(),
     body('address').optional().isString(),
     errorHandler
 ];
+
+const updateMeValidator =[
+    body('email').isEmail().optional().withMessage('Invalid email'),
+    body('password').optional().isString().withMessage('Password must be a string'),
+    body('password').optional().isStrongPassword(strongPasswordOptions).withMessage('Password must contain at least one uppercase letter, one lowercase letter, one number and be at least 5 characters long'),
+    body('profileIcon').optional().isIn(['ICON_1','ICON_2','ICON_3','ICON_4','ICON_5','ICON_6','ICON_7','ICON_8','ICON_9'])
+    .withMessage('Invalid profile icon, must be one of ICON_1 to ICON_9'),
+    body('name').optional().isString(),
+    body('phone').optional().isString(),
+    body('address').optional().isString(),
+    errorHandler   
+]
 
 const deleteUserValidator = [
     param('id').notEmpty().isInt().withMessage('Id must be an integer'),
@@ -80,6 +93,7 @@ export default {
     loginUserValidator,
     createUserValidator,
     getAllUsersValidator,
+    updateMeValidator,
     getUserByIdValidator,
     updateUserValidator,
     deleteUserValidator

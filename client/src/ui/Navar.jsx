@@ -11,6 +11,7 @@ import burger from "../assets/icon/burger.png";
 
 import "./navar.css";
 import { useAccordionButton } from "react-bootstrap";
+import { UserSection } from "./NavBar/UserSection";
 
 function NavProducts({ eventKey }) {
   const decoratedOnClick = useAccordionButton(eventKey, () =>
@@ -63,15 +64,17 @@ const ButtonBurger = () => {
 export const Navar = () => {
   return (
     <>
-      <Navbar style={{ padding: 0, zIndex: 10 }} collapseOnSelect expand="lg">
+      <Navbar style={{ padding: 0, zIndex: 10 }} collapseOnSelect expand="none">
         <div className="navbar__container">
           <ButtonBurger />
           <Link to={"/"}>
             <img src={logo} alt="icon" width={64} height={64} />
           </Link>
+
+          
           <img src={cart} alt="icon cart" />
-        </div>
-        <Navbar.Collapse id="responsive-navbar-nav" className="navar__collapse">
+       
+          <Navbar.Collapse id="responsive-navbar-nav" className=" navar__collapse ">
           <Nav className="navbar__container__header__collapse">
             <ButtonBurger />
           </Nav>
@@ -99,16 +102,12 @@ export const Navar = () => {
             </ul>
           </Nav>
 
-          <div className="navbar__container__footer__collapse">
-            <NavLink to="login" className="link">
-              Iniciar Sesión
-            </NavLink>{" "}
-            <span className="link">|</span>{" "}
-            <NavLink to="register" className="link">
-              Crear cuenta
-            </NavLink>
-          </div>
+          <UserSection/>
         </Navbar.Collapse>
+       
+       
+        </div>
+        
       </Navbar>
     </>
   );

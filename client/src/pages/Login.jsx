@@ -7,32 +7,37 @@ import "./styles/login.css";
 import userlogo from "../assets/icon/userlogo.png"
 import axios from "axios";
 import { toast } from 'react-toastify';
+import { useAuth } from "../hooks/useAuth";
 
 
 export const Login = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
+  const { setIsLoading } = useAuth();
+  const LOGIN_URL = import.meta.env.VITE_LOGIN_URL;
+  const onFormSubmit = (data) => {
 
-  const onFormSubmit = (data) =>{
-     axios
-     .post("https://nc-api-c911t.gpamic.ar/api/v1/login", data)
-     .then((res) => {
-      localStorage.setItem("token", res.data.token);
-      toast.success("Bienvenido");
-       navigate("/", {
-         replace: true,
-       });
-      
-     })
-     .catch((error) => {
+    axios
+      .post(LOGIN_URL, data)
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
+        
+        toast.success("Bienvenido");
+        navigate("/", {
+          replace: true,
+        });
+        setIsLoading(true);
+
+      })
+      .catch((error) => {
         console.log(error);
 
         toast.error("Usuario o contraseña incorrectos");
-     });
-  
+      });
+
   }
-    
-  
+
+
 
   const onErrors = (errors) => {
     console.log(errors);
@@ -70,11 +75,11 @@ export const Login = () => {
         />
       </div>
 
-      
-        <button className="btn__enter" type="submit">
-          Ingresar
-        </button>
-      
+
+      <button className="btn__enter" type="submit">
+        Ingresar
+      </button>
+
 
     </form>
 
