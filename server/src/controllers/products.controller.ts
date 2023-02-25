@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
 import ProductsService from '../services/product.service';
+import UsersService from '../services/user.service';
 const productService = new ProductsService();
+const userService = new UsersService();
 
 type getAllQuery = {
   page?: number,
   limit?: number,
-  categoryId?: any,
+  categoryId?: any
 }
 
 const getProducts = async (req: Request, res: Response) => {
@@ -20,11 +22,16 @@ const getProducts = async (req: Request, res: Response) => {
 
   let categoryId = query.categoryId;
 
+  let isAdmin:any = false;
+  if(req.body.userId!=null){
+    isAdmin = await userService.isAdmin(req.body.userId);
+  }
+  
   let products;
   if (categoryId == null) {
-     products = await productService.getProducts(limit, page);
+     products = await productService.getProducts(limit, page, !isAdmin);
   }else{
-      products = await productService.getProductsByCategory(parseInt(categoryId), limit, page);
+      products = await productService.getProductsByCategory(parseInt(categoryId), limit, page, !isAdmin);
   }
 
  

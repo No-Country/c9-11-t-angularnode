@@ -3,10 +3,11 @@ import productsController from '../controllers/products.controller';
 import validator from '../middlewares/validations/products.validator';
 import authMiddleware from '../middlewares/security/auth.middleware';
 import isAdmin from '../middlewares/security/isAdmin.middleware';
+import optionalAuthMiddleware from '../middlewares/security/optional.auth.middleware';
 
 const productsRouter = Router();
 
-productsRouter.get('/', validator.getAllProductsValidator, productsController.getProducts);
+productsRouter.get('/', validator.getAllProductsValidator, optionalAuthMiddleware, productsController.getProducts);
 productsRouter.get('/:id', validator.getProductByIdValidator, productsController.getProduct);
 productsRouter.use(authMiddleware, isAdmin);
 productsRouter.post('/', validator.createProductValidator, productsController.createProduct);

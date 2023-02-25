@@ -11,12 +11,16 @@ const categoriesRouter = Router();
 //GET all categories
 categoriesRouter.get('/',validator.getAllCategoriesValidator,categoryController.getAll); 
 
-//Protect all routes after this middleware
-categoriesRouter.use(authMiddleware,isAdmin);
+
 //GET a category by id
 categoriesRouter.get('/:id',validator.getByIdCategoryValidator,categoryController.getById);
 
+
 categoriesRouter.get('/section/:section',validator.getCategoriesBySectionValidator,categoryController.getBySection);
+
+//Protect all routes after this middleware
+categoriesRouter.use(authMiddleware,isAdmin);
+
 
 //POST a new category
 categoriesRouter.post('/',validator.createCategoryValidator, categoryController.create);

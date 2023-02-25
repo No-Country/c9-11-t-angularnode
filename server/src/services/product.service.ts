@@ -39,15 +39,26 @@ export default class ProductsService {
     * @param { number } page
     * @returns { Promise<ProductRead[]> }
   **/
-  public async getProducts(limit: number, page: number) {
-    try {
-      const products = await productsRepository.findAll({}, {}, { limit: limit, page: page });
+  public async getProducts(limit: number, page: number, isActive?: boolean) {
 
-      return ResponseParse(200, products);
+    try {
+      if(isActive){
+        const products = await productsRepository.findAll({isActive:true}, {}, { limit: limit, page: page },{include:{category:{select:{name:true,section:true}}}});
+        return ResponseParse(200, products);
+      }else{
+        const products = await productsRepository.findAll({}, {}, { limit: limit, page: page },{include:{category:{select:{name:true,section:true}}}});
+        return ResponseParse(200, products);
+      }
+      
     } catch (error: any) {
       return ResponseParse(500, `Error in product service: ${error.message}`);
     }
   }
+
+
+  
+
+
 
   /**
     * Find a product by Id
@@ -76,10 +87,17 @@ export default class ProductsService {
    * @param page
    * @returns
    */
-  public async getProductsByCategory(categoryId: number, limit: number, page: number) {
+  public async getProductsByCategory(categoryId: number, limit: number, page: number, isActive?: boolean) {
     try {
-      const repoResponse = await productsRepository.findAll({ categoryId: categoryId }, {}, { limit: limit, page: page });
+    if(isActive){
+      const repoResponse = await productsRepository.findAll({ categoryId: categoryId, isActive:true }, {}, { limit: limit, page: page },{include:{category:{select:{name:true,section:true}}}});
       return ResponseParse(200, repoResponse);
+    }else{
+      const repoResponse = await productsRepository.findAll({ categoryId: categoryId}, {}, { limit: limit, page: page },{include:{category:{select:{name:true,section:true}}}});
+      return ResponseParse(200, repoResponse);
+    }
+
+      
     } catch (error: any) {
       
       return ResponseParse(500, `Error in get products by category service: ${error.message}`);
