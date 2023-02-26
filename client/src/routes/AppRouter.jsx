@@ -4,8 +4,13 @@ import { Login } from "../pages/Login";
 import { Products } from "../pages/Products";
 import { Home } from "../pages/Home";
 import { Contact } from "../pages/Contact";
+import { useAuth} from "../hooks/useAuth";
+import { AdminPage } from "../pages/AdminPage";
+
+
 
 export const AppRouter = () => {
+  const { isAuthenticated } = useAuth();
   return (
     <>
       <Routes>
@@ -13,8 +18,10 @@ export const AppRouter = () => {
         <Route path="/" element={<Home />} />
         <Route path="products/:category" element={<Products />} />
         <Route path="contact" element={<Contact />} />
-        <Route path="register" element={<CreateAccount />} />
+        <Route path="register" element={<CreateAccount />} /> 
+        <Route path="/admin" element={isAuthenticated ? <AdminPage/> : <Home/>} />
         <Route path="/*" element={<Home />} />
+       
       </Routes>
     </>
   );

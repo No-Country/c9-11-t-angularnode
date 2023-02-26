@@ -10,7 +10,7 @@ export default function CarouselCutom() {
 
   return (
     <Carousel
-      style={{ width: "100%", height: "150px" }}
+      style={{ width: "100%" }}
       activeIndex={index}
       onSelect={handleSelect}
     >

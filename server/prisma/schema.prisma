@@ -17,6 +17,7 @@ model Users {
   password String
   address  String?
   phone    String?
+  profileIcon ProfileIcon @default(ICON_4)
   isActive Boolean   @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -57,6 +58,17 @@ model Categories {
   products Products[]
 }
 
+enum ProfileIcon {
+  ICON_1
+  ICON_2
+  ICON_3
+  ICON_4
+  ICON_5
+  ICON_6
+  ICON_7
+  ICON_8
+  ICON_9
+}
 
 enum Section {
   FOODS
