@@ -1,31 +1,19 @@
-import { useEffect, useState } from "react"
-import axios from "axios";
-const apiUrl = import.meta.env.VITE_API_URL;
+import { Select, MenuItem,InputLabel,FormControl } from "@mui/material";
+import { useAppContext } from "../../context/AppContext";
 
 export const ListAndSelectCategory = ({setCategory}) => {
 
-const [categories, setCategories] = useState([]);
-
-const getCategories = async () => {
-    try {
-        const response = await axios.get(`${apiUrl}/categories`)
-        setCategories(response.data.rows);
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-useEffect(() => {
-    getCategories()
-}, [])
+  const { state: { categories } } = useAppContext();
 
   return (<>
-  
-   <select className="form-select" aria-label="Default select example" onChange={(e)=>setCategory(e.target.value)}>
-    <option selected value={'default'}>Elegir categoria</option>
+  <FormControl fullWidth>
+   <InputLabel color={'warning'}>Filtrar Categoría</InputLabel>
+   <Select label="Filtrar Categoria" color={'warning'} onChange={(e)=>setCategory(e.target.value)}>
+    <MenuItem  value={'default'}>Todos</MenuItem>
     {categories.map((category) => (
-      <option key={category.id} value={category.id}>{category.name}</option>
+      <MenuItem  key={category.id} value={category.id}>{category.name}</MenuItem>
     ))}
-  </select></>
+  </Select>
+  </FormControl></>
   )
 }

@@ -57,6 +57,7 @@ const createProduct = async (req: Request, res: Response) => {
 
 
 const updateProduct = async (req: Request, res: Response) => {
+  if(req.files) req.body.image = req.files.image;
   let {statusCode,response} = await productService.updateProduct(parseInt(req.params.id), req.body);
   res.status(statusCode).json(response)
 }

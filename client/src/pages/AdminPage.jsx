@@ -1,11 +1,7 @@
-import { ListProducts } from "../components/AdminSection/ListProducts"
+import { Dashboard } from "../components/AdminSection/Dashboard"
 
 export const AdminPage = () => {
   return (
-    <div>
-      
-      <ListProducts />
-      
-    </div>
+      <Dashboard /> 
   )
 }

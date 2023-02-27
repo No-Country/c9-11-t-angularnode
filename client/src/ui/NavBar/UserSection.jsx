@@ -13,7 +13,7 @@ export const UserSection = () => {
             <Stack direction="horizontal" gap={3}>
                 
                 <div>Hola {user.name}! </div>
-                <img src={`./src/assets/profileIcon/${user.profileIcon}.png`} height={50} alt="profilePic" /> 
+                <img src={`../src/assets/profileIcon/${user.profileIcon}.png`} height={50} alt="profilePic" /> 
                 <NavLink to="profile" className="link">
                     Perfil 
                 </NavLink>
