@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
+  "prisma": {
+    "seed": "node --require esbuild-register prisma/seeds/productSeeds.ts"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx ts-node-dev index.ts",
-    "seed":"ts-node-dev prisma/seeds/basicSeeds.ts",
-    "start":"node dist/index.js",
-    "prisma":"npx prisma generate & npx ts-node-dev index.ts"
-
+    "seed": "ts-node-dev prisma/seeds/basicSeeds.ts",
+    "start": "node dist/index.js",
+    "prisma": "npx prisma generate & npx ts-node-dev index.ts"
   },
   "author": "",
   "license": "ISC",
@@ -32,6 +34,7 @@
     "@types/lodash": "^4.14.191",
     "@types/morgan": "^1.9.4",
     "@types/node": "^18.11.18",
+    "esbuild-register": "^3.4.2",
     "morgan": "^1.10.0",
     "prisma": "^4.9.0",
     "prisma-repo": "^0.3.11",
