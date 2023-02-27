@@ -145,9 +145,25 @@ export default class ProductsService {
     * @returns { Promise<ProductRead> }
     *
   **/
-  public async updateProduct(id: number, product: ProductWrite) {
+  public async updateProduct(id: number, product: any) {
     try {
-      const updatedProduct = await productsRepository.update(id, product);
+
+      const { image, ...productData } = product;
+
+      if(image){
+         const uploadedResult = await cloudinary.uploader.upload(image.tempFilePath, {
+        upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
+
+      });
+      productData.imageUrl = uploadedResult.secure_url;
+      }
+     
+      productData.categoryId = parseInt(productData.categoryId);
+      productData.price = parseFloat(productData.price);
+      productData.discount = parseFloat(productData.discount);
+      productData.isActive = productData.isActive == 'true' ? true : false;
+
+      const updatedProduct = await productsRepository.update(id, productData);
       return ResponseParse(200, updatedProduct);
     } catch (error: any) {
       return ResponseParse(500, `Error in update product service: ${error.message}`);

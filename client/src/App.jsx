@@ -8,19 +8,23 @@ import { LinearProgress } from "@mui/material"
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'react-toastify/dist/ReactToastify.css';
+import { AppProvider, useAppContext } from "./context/AppContext";
+import { LoadingBar } from "./ui/LoadingBar";
+
 
 export const App = () => {
 
-  
   return (
     <>
+    <AppProvider>
      <AuthProvider>
       <Navar />
-      {<LinearProgress color="warning" /> && false}
+      <LoadingBar/>
       <AppRouter />
       <Footer />
       <ToastContainer />
      </AuthProvider>
+     </AppProvider>
       
     </>
   );

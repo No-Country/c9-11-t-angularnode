@@ -6,6 +6,7 @@ import { Home } from "../pages/Home";
 import { Contact } from "../pages/Contact";
 import { useAuth} from "../hooks/useAuth";
 import { AdminPage } from "../pages/AdminPage";
+import { AdminProductsPage } from "../pages/AdminProductsPage";
 
 
 
@@ -20,6 +21,7 @@ export const AppRouter = () => {
         <Route path="contact" element={<Contact />} />
         <Route path="register" element={<CreateAccount />} /> 
         <Route path="/admin" element={isAuthenticated ? <AdminPage/> : <Home/>} />
+        <Route path="/admin/products" element={isAuthenticated ? <AdminProductsPage/> : <Home/>} />
         <Route path="/*" element={<Home />} />
        
       </Routes>
