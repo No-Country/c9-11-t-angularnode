@@ -1,0 +1,118 @@
+.createAccountContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--four);
+}
+
+.createAccountContainer .headerForm {
+  width: 90%;
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 40px 0px 50px;
+  background: var(--second);
+  border-radius: 0.5rem;
+}
+
+.headerForm img {
+  width: 24px;
+  height: 24px;
+  margin-left: 30px;
+}
+
+.headerForm h4 {
+  margin: 0px 0px 0px 15px;
+  font-weight: 500;
+}
+
+.createAccountContainer .createAccountForm {
+  width: 90%;
+}
+
+.createAccountForm .formItem {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.formItem label {
+  padding-bottom: .5rem;
+  font-weight: 400;
+}
+
+.formItem input {
+  padding: 0.5rem;
+  border: 1px solid var(--primary);
+}
+
+.createAccountBtn {
+  width: 100%;
+  height: 3rem;
+  color: var(--thirt);
+  font-size: 1.2rem;
+  background-color: var(--primary);
+  border-radius: 0.5rem;
+  border:0;
+  transition:.3s;
+}
+
+.createAccountBtn:hover {
+  font-size: 1.2rem;
+  background-color: var(--second);
+  color: var(--thirt);
+}
+
+@media(min-width: 576px) {
+  .createAccountContainer .headerForm {
+    width: 80%;
+    height: 50px;
+    margin: 20px 0px 20px;
+  }
+
+  .createAccountContainer .createAccountForm {
+    width: 80%;
+  }
+}
+
+@media(min-width: 768px) {
+  .createAccountContainer .createAccountForm {
+    width: 60%;
+  }
+}
+
+@media(min-width: 1024px) {
+  .createAccountContainer .createAccountForm {
+    width: 50%;
+    background-color: var(--thirt);
+    padding: 2rem 3rem;
+    border-radius: .5rem;
+  }
+
+  .headerForm img {
+    width: 26px;
+    height: 26px;
+  }
+
+  .headerForm h4 {
+    margin: 0px 0px 0px 20px;
+    font-size: 18px;
+  }
+
+  .createAccountForm .formItem {
+    margin-bottom: 1.2rem;
+  }
+
+  .formItem label {
+    padding-bottom: 0.3rem;
+    font-size: 14px;
+  }
+
+  .formItem input {
+    height: 2.2rem;
+  }
+}

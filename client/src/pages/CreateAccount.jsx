@@ -1,84 +1,81 @@
-import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import './styles/login.css';
-
-
+import './styles/createAccount.css';
+import userIcon from "../assets/icon/userlogo.png";
+import axios from "axios";
+import { toast } from 'react-toastify';
 
 export const CreateAccount = () => {
-  
-  const { register, handleSubmit } = useForm();
 
+  const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
-const submit = (data) => {
-  axios
-    .post("https://nc-api-c911t.gpamic.ar/api/v1/register", data)
-    .then((res) => {
-      navigate("/");
-      localStorage.setItem("token", res.data); 
-    })
-    .catch((error) => {
-      if (error) {
-        alert("Credenciales incorrectas");
-      } 
-    });
-};
+  const submitAccountCreationForm = (data) => {
+    axios
+      .post(`${import.meta.env.VITE_API_URL}/register`, data)
+      .then((res) => {
+        toast.success("Cuenta creada con éxito");
+        navigate("/login", {
+          replace: true,
+        });
+      })
+      .catch((error) => {
+        console.log(`Error when sending the account creation form: ${ error }`);
+        if(!error.response.data) {
+          toast.error("Ha ocurrido un error, por favor inténtelo de nuevo más tarde");
+          return
+        }
 
+        toast.error(error.response.data.errors[0].msg);
+      });
+  };
 
-  const [show, setShow] = useState(true);
-  const handleClose = () => setShow(!show);
   return (
-    <>
-      <form className="login" onSubmit={handleSubmit(submit)}>
-        <Modal show={show} onHide={handleClose}>
+    <div className="createAccountContainer">
+      <div className="headerForm">
+        <img src={ userIcon } alt="userlogo" />
+        <h4>Crear cuenta</h4>
+      </div>
 
-        <Modal.Header closeButton>
-          </Modal.Header>
-          <Modal.Body className="login__container">
-          <button className="btn btn__enter">Crear cuenta</button>
-          <div className="user">
+      <form className="createAccountForm" onSubmit={ handleSubmit(submitAccountCreationForm) }>
+        <div className="formItem">
           <label>Nombre y apellido</label>
-            <input type="text" 
+          <input
+            type="text"
             {...register("name")}
-            />
-          </div>
-          <div className="user">
+          />
+        </div>
+
+        <div className="formItem">
           <label>Email</label>
-            <input type="email" 
+          <input
+            type="email"
             {...register("email")}
-            />
-          </div>
-          <div className="user">
-          <label>Numero de celular (opcional)</label>
-            <input type="number" 
+          />
+        </div>
+
+        <div className="formItem">
+          <label>Número de celular (opcional)</label>
+          <input
+            type="number"
             {...register("phone")}
-            />
-          </div>
-          <div className="user">
+          />
+        </div>
+
+        <div className="formItem">
           <label>Contraseña</label>
-            <input type="password" 
+          <input
+            type="password"
             {...register("password")}
-            />
-          </div>
-          <div className="user">
-          <label>Direccion</label>
-            <input type="text" 
-            {...register("address")}
-            />
-          </div>
-          </Modal.Body>
-          <Modal.Footer className="btn__down">
-            <Button className="btn btn__enter " type="submit">
-              Ingresar
-            </Button>
-          </Modal.Footer> 
-        
-        </Modal>
+          />
+        </div>
+
+        <button className="createAccountBtn" type="submit">
+          Enviar
+        </button>
       </form>
-    </>
+    </div>
   );
 }
 
