@@ -8,6 +8,7 @@ type getAllQuery = {
   page?: number,
   limit?: number,
   categoryId?: any
+  showAll?:boolean
 }
 
 const getProducts = async (req: Request, res: Response) => {
@@ -22,14 +23,22 @@ const getProducts = async (req: Request, res: Response) => {
 
   let categoryId = query.categoryId;
 
+  let showAll = query.showAll;
+
+ 
+  if(showAll==null) showAll = false;
   let isAdmin:any = false;
-  if(req.body.userId!=null){
-    isAdmin = await userService.isAdmin(req.body.userId);
+
+  if(showAll){
+    if(req.body.userId!=null){
+      isAdmin = await userService.isAdmin(req.body.userId);
+    }
   }
+  const showAllProducts = showAll && isAdmin;
   
   let products;
   if (categoryId == null) {
-     products = await productService.getProducts(limit, page, !isAdmin);
+     products = await productService.getProducts(limit, page, !showAllProducts);
   }else{
       products = await productService.getProductsByCategory(parseInt(categoryId), limit, page, !isAdmin);
   }
