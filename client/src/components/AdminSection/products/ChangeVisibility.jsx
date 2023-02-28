@@ -27,12 +27,18 @@ export default function ChangeVisibility({ product }) {
               }
             }),
             {
-              loading: "Cambiando visibilidad del producto",
-              success: "Visibilidad del producto cambiada con éxito",
+              pending: "Cambiando visibilidad del producto",
+              success: {
+                render(){
+                  dispatch({ type: 'HAS_CHANGES', payload: !hasChanges })
+                  dispatch({ type: 'SET_LOADING', payload: false })
+                  return "Visibilidad del producto cambiada con éxito"
+                }
+              },
               error: "Error al cambiar visibilidad del producto"
             })
-          dispatch({ type: 'SET_LOADING', payload: false })
-          dispatch({ type: 'HAS_CHANGES', payload: !hasChanges })
+         
+  
           return;
         } catch (err) {
       

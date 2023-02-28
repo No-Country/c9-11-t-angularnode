@@ -5,13 +5,14 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link, NavLink } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 
-import cart from "../assets/icon/cart.png";
+
 import logo from "../assets/icon/logo.png";
 import burger from "../assets/icon/burger.png";
 
 import "./navar.css";
 import { useAccordionButton } from "react-bootstrap";
 import { UserSection } from "./NavBar/UserSection";
+import { CartButton } from "../components/Cart/CartButton";
 
 function NavProducts({ eventKey }) {
   const decoratedOnClick = useAccordionButton(eventKey, () =>
@@ -20,7 +21,7 @@ function NavProducts({ eventKey }) {
 
   return (
     <button className="buttonProd" type="button" onClick={decoratedOnClick}>
-      Products
+      Productos
     </button>
   );
 }
@@ -72,7 +73,7 @@ export const Navar = () => {
           </Link>
 
           
-          <img src={cart} alt="icon cart" />
+         <CartButton/>
        
           <Navbar.Collapse id="responsive-navbar-nav" className=" navar__collapse ">
           <Nav className="navbar__container__header__collapse">

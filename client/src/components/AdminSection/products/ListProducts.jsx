@@ -48,7 +48,7 @@ export const ListProducts = () => {
                             <th>Habilitado</th>
                             <th>Categoría</th>
 
-                            <th>Opciones</th>
+                            <th></th>
                             <th></th>
                             <th></th>
 
