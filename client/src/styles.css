@@ -32,9 +32,9 @@
     box-sizing: border-box;
     font-family: 'roboto';
 }
-/*body{
+body{
     background-image: url('../src/assets/images/Fondo.jpg');
-}*/
+}
 
 a{
     text-decoration: none;
