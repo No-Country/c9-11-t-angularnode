@@ -21,11 +21,8 @@
 
 :root{
     --primary:#E38B29;
-
     --second: #FFD8A9;
-    
     --thirt: #FDEEDC;
-
     --four: #FFF9F3;
 }
 
@@ -34,15 +31,13 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'roboto';
-    
 }
-body{
+/*body{
     background-image: url('../src/assets/images/Fondo.jpg');
-}
+}*/
 
 a{
     text-decoration: none;
-    
 }
 
 ul, ol{
@@ -50,7 +45,7 @@ ul, ol{
 }
 
 main{
-    display:flex;   
+    display:flex;
     flex-direction: column;
     gap:3rem;
 }
