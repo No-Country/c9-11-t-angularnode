@@ -16,7 +16,7 @@ export const useCategories = () => {
               
                 return;
             }else{
-                const response = await axios.get(`${api_url}/categories`)
+                const response = await axios.get(`${api_url}/categories?limit=100`)
                 dispatch({type: 'SET_CATEGORIES', payload: response.data.rows})
                 return;
             }

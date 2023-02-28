@@ -15,7 +15,7 @@ export const useProducts = () => {
     try {
       dispatch({ type: 'SET_LOADING', payload: true })
       if (categoryId && categoryId !== 'default') {
-        const response = await axios.get(`${apiUrl}/products?categoryId=${categoryId}&page=${page}`, {
+        const response = await axios.get(`${apiUrl}/products?categoryId=${categoryId}&page=${page}&showAll=true&limit=20`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
@@ -25,7 +25,7 @@ export const useProducts = () => {
         dispatch({ type: 'SET_LOADING', payload: false })
         return;
       } else {
-        const response = await axios.get(`${apiUrl}/products?page=${page}`, {
+        const response = await axios.get(`${apiUrl}/products?page=${page}&showAll=true&limit=20`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }

@@ -54,7 +54,7 @@ export default class CategoriesService {
     public async getBySection(section: Section) {
         try{
            
-            const res = await Categories.findAll({section:section},{},{});
+            const res = await Categories.findAll({section:section},{},{},{select:{id:true,name:true,description:true,section:true}});
             
             if (res == null) {
                 return ResponseParse(404,`${section} doesn't have categories`);
