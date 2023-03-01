@@ -2,12 +2,13 @@ import { useCart } from "react-use-cart"
 import cartIcon from '../assets/icon/cart.png'
 import './styles/cartPage.css'
 import { Button } from "@mui/material"
+import { Link } from 'react-router-dom'
 
 
 
 export const CartPage = () => {
 
-    const { isEmpty, totalUniqueItems, items, totalItems, cartTotal, updateItemQuantity, removeItem, emptyCart } = useCart()
+    const { isEmpty,  items,  cartTotal, updateItemQuantity } = useCart()
 
 
     return (
@@ -25,7 +26,9 @@ export const CartPage = () => {
                         <h5>El carrito está vacío</h5>
                     </div>
                     <div className="cart_summary_buttons">
+                    <Link to="/products" style={{textDecoration:'none',color:'inherit'}}>
                     <Button variant='contained' sx={{background:'var(--second)',color:'#000', textTransform:'none',width:'100%','&:hover':{background:'var(--thirt)'}, borderRadius:'0.3rem'}} >Seguir comprando</Button>
+                    </Link>
                     </div>
                 </>
                 ) : (
@@ -55,8 +58,9 @@ export const CartPage = () => {
                            
                         </div>
                         <div className='cart_summary_buttons'>
-                        <Button variant='contained' sx={{background:'var(--second)',color:'#000', textTransform:'none',width:'100%','&:hover':{background:'var(--thirt)'}, borderRadius:'0.3rem'}} >Seguir comprando</Button> 
-                        <Button variant='contained' sx={{background:'var(--primary)', textTransform:'none',width:'100%','&:hover':{background:'#c56b07'},borderRadius:'0.3rem'}} >Finalizar compra</Button> 
+                       <Link to="/products" style={{textDecoration:'none',color:'inherit'}}><Button variant='contained' sx={{background:'var(--second)',color:'#000', textTransform:'none',width:'100%','&:hover':{background:'var(--thirt)'}, borderRadius:'0.3rem'}} >Seguir comprando</Button> 
+                       </Link> 
+                       <Link to="/cart/checkout" style={{textDecoration:'none',color:'inherit'}}> <Button variant='contained' sx={{background:'var(--primary)', textTransform:'none',width:'100%','&:hover':{background:'#c56b07'},borderRadius:'0.3rem'}} >Finalizar compra</Button> </Link>
                         </div>
 
                     </>

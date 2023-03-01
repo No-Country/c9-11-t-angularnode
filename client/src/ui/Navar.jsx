@@ -16,7 +16,8 @@ import { CartButton } from "../components/Cart/CartButton";
 
 function NavProducts({ eventKey }) {
   const decoratedOnClick = useAccordionButton(eventKey, () =>
-    console.log("totally custom!")
+    //console.log("totally custom!")
+    { return; }
   );
 
   return (

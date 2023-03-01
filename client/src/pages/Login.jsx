@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import "./styles/login.css";
@@ -17,23 +15,33 @@ export const Login = () => {
   const LOGIN_URL = import.meta.env.VITE_LOGIN_URL;
   const onFormSubmit = (data) => {
 
-    axios
-      .post(LOGIN_URL, data)
-      .then((res) => {
-        localStorage.setItem("token", res.data.token);
-        
-        toast.success("Bienvenido");
-        navigate("/", {
-          replace: true,
-        });
-        setIsLoading(true);
-
-      })
-      .catch((error) => {
-        console.log(error);
-
-        toast.error("Usuario o contraseña incorrectos");
-      });
+    toast.promise(
+      axios.post(LOGIN_URL, data),
+      {
+        pending: "Iniciando sesión...",
+        success: {
+          render: (res) => {
+            console.log(res.data)
+            localStorage.setItem("token", res.data.data.token); 
+            navigate("/", {
+              replace: true,
+            });
+            setIsLoading(true); 
+            return `Bienvenido`;
+          }
+        },
+        error: {
+          render: (error) => {
+            if (error.data.response.status === 401) {
+              return `Usuario o contraseña incorrectos`;
+            } else {
+              console.log(error)
+              return `Error al iniciar sesión.`;
+            }
+          }
+        }
+      }
+    )
 
   }
 
@@ -42,12 +50,6 @@ export const Login = () => {
   const onErrors = (errors) => {
     console.log(errors);
   };
-
-
-
-  const [show, setShow] = useState(true);
-
-  const handleClose = () => setShow(!show);
 
   return (
 
