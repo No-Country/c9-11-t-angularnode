@@ -10,6 +10,8 @@ import { AdminCategoriesPage } from "../pages/AdminCategoriesPage";
 import { Sections } from "../pages/Sections";
 import { Products } from "../pages/Products";
 import { CartPage } from "../pages/CartPage";
+import { ProductsPage } from "../pages/ProductsPage";
+import { CartCheckout } from "../components/Cart/CartCheckout";
 
 
 
@@ -20,6 +22,7 @@ export const AppRouter = () => {
       <Routes>
         <Route path="login" element={<Login />} />
         <Route path="/" element={<Home />} />
+        <Route path="products" element={<ProductsPage />} />
         <Route path="products/:section" element={<Sections />} />
         <Route path="products/:section/:categoryId" element={<Products />} />
         <Route path="contact" element={<Contact />} />
@@ -28,6 +31,7 @@ export const AppRouter = () => {
         <Route path="/admin/products" element={isAuthenticated ? <AdminProductsPage/> : <Home/>} />
         <Route path="/admin/categories" element={isAuthenticated ? <AdminCategoriesPage/> : <Home/>} />
         <Route path={'/cart'} element={<CartPage />} />
+        <Route path={'/cart/checkout'} element={<CartCheckout />} />
         <Route path="/*" element={<Home />} />
       </Routes>
     </>
