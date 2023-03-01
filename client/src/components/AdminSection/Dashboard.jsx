@@ -1,16 +1,12 @@
-import { useAuth } from "../../hooks/useAuth"
-import { Grid, Typography, Card } from "@mui/material"
+import { useAuth } from "../../hooks/useAuth";
+import { Grid, Typography, Card } from "@mui/material";
 import LocalGroceryStoreRoundedIcon from '@mui/icons-material/LocalGroceryStoreRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
 import ToggleButton from '@mui/material/ToggleButton';
+import { Link } from 'react-router-dom';
 
-import { Link } from 'react-router-dom'
 export const Dashboard = () => {
-
-
-
-
     const { user } = useAuth();
 
     //Admin Dashboard
@@ -37,10 +33,7 @@ export const Dashboard = () => {
                             boxShadow: 3,
                             '&:hover': {
                                 boxShadow: 6,
-
                             },
-
-
                         }}
                     >
                         <Typography variant="h5"><LocalGroceryStoreRoundedIcon sx={{ fontSize: '2em' }} /></Typography>
@@ -48,28 +41,31 @@ export const Dashboard = () => {
                     </Card>
                 </ToggleButton></Link>
 
-                <ToggleButton sx={{ border: 'none', padding: 0, textTransform: 'none' }}><Card
+                <Link to="/admin/categories" style={{ textDecoration: 'none' }}>
+                    <ToggleButton sx={{ border: 'none', padding: 0, textTransform: 'none' }}>
+                        <Card
+                            sx={{
+                                width: 200,
+                                height: 200,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                background: 'var(--primary)',
+                                color: '#fff',
+                                borderRadius: 2,
+                                boxShadow: 3,
+                                '&:hover': {
+                                    boxShadow: 6,
+                                }
+                            }}
+                        >
+                            <Typography variant="h5"><MenuBookRoundedIcon sx={{ fontSize: '2em' }} /></Typography>
+                            <Typography variant="h6">Categorías</Typography>
+                        </Card>
+                    </ToggleButton>
+                </Link>
 
-                    sx={{
-                        width: 200,
-                        height: 200,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        background: 'var(--primary)',
-                        color: '#fff',
-                        borderRadius: 2,
-                        boxShadow: 3,
-                        '&:hover': {
-                            boxShadow: 6,
-
-                        }
-                    }}
-                >
-                    <Typography variant="h5"><MenuBookRoundedIcon sx={{ fontSize: '2em' }} /></Typography>
-                    <Typography variant="h6">Categorías</Typography>
-                </Card></ToggleButton>
                 <ToggleButton sx={{ border: 'none', padding: 0, textTransform: 'none' }}><Card
 
                     sx={{
@@ -93,19 +89,7 @@ export const Dashboard = () => {
                     <Typography variant="h6">Usuarios</Typography>
                 </Card>
                 </ToggleButton>
-
-
-
-
             </Grid>
-
-
-
         </Grid>
-
-
-
-
-
     )
 }

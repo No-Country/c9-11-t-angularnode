@@ -6,6 +6,7 @@ import { Contact } from "../pages/Contact";
 import { useAuth} from "../hooks/useAuth";
 import { AdminPage } from "../pages/AdminPage";
 import { AdminProductsPage } from "../pages/AdminProductsPage";
+import { AdminCategoriesPage } from "../pages/AdminCategoriesPage";
 import { Sections } from "../pages/Sections";
 import { Products } from "../pages/Products";
 import { CartPage } from "../pages/CartPage";
@@ -25,9 +26,9 @@ export const AppRouter = () => {
         <Route path="register" element={<CreateAccount />} /> 
         <Route path="/admin" element={isAuthenticated ? <AdminPage/> : <Home/>} />
         <Route path="/admin/products" element={isAuthenticated ? <AdminProductsPage/> : <Home/>} />
+        <Route path="/admin/categories" element={isAuthenticated ? <AdminCategoriesPage/> : <Home/>} />
         <Route path={'/cart'} element={<CartPage />} />
         <Route path="/*" element={<Home />} />
-       
       </Routes>
     </>
   );
