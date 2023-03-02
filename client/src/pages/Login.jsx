@@ -22,11 +22,11 @@ export const Login = () => {
         success: {
           render: (res) => {
             console.log(res.data)
-            localStorage.setItem("token", res.data.data.token); 
+            localStorage.setItem("token", res.data.data.token);
             navigate("/", {
               replace: true,
             });
-            setIsLoading(true); 
+            setIsLoading(true);
             return `Bienvenido`;
           }
         },
@@ -45,45 +45,38 @@ export const Login = () => {
 
   }
 
-
-
   const onErrors = (errors) => {
     console.log(errors);
   };
 
   return (
-
-    <form className="loginForm" onSubmit={handleSubmit(onFormSubmit, onErrors)}>
-
-
-      <div className="login__title">
-        <h5> <img src={userlogo} alt="userlogo" /> Iniciar sesión</h5>
+    <div className="loginContainer">
+      <div className="headerForm">
+        <img src={ userlogo } alt="userlogo" />
+        <h4>Iniciar sesión</h4>
       </div>
 
-      <div className="user">
-        <label>Mail</label>
-        <input
-          type="text"
-          placeholder="Enter email"
-          {...register("email")}
-        />
-      </div>
-      <div className="user">
-        <label>Contraseña</label>
-        <input
-          type="password"
-          {...register("password")}
-          placeholder="password"
-        />
-      </div>
+      <form className="loginForm" onSubmit={handleSubmit(onFormSubmit, onErrors)}>
+        <div className="formItem">
+          <label>Mail</label>
+          <input
+            type="text"
+            placeholder="Enter email"
+            {...register("email")}
+          />
+        </div>
 
+        <div className="formItem">
+          <label>Contraseña</label>
+          <input
+            type="password"
+            {...register("password")}
+            placeholder="password"
+          />
+        </div>
 
-      <button className="btn__enter" type="submit">
-        Ingresar
-      </button>
-
-
-    </form>
-
+        <button className="loginBtn" type="submit">Ingresar</button>
+      </form>
+    </div>
   );
 };

@@ -1,76 +1,123 @@
-.login{
-    width: 80%;
+.loginContainer {
+    width: 100vw;
     height: 100vh;
-    
-}
-.login__container{
     display: flex;
     flex-direction: column;
-    gap: 3rem;
-    padding-bottom: 10rem;
-    margin: 1rem;
-}
-
-
-.login__title{
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--primary);
-    font-family:'Roboto'
-}
-
-.login__title h5{
-    font-size: 1.2rem;
-    color:#000;
-    font-weight: 400;
-    
-    font-family:'Roboto';
-   background: var(--second);
-    padding: 1rem;
-    border-radius: 0.5rem;
-}
-
-.loginForm{
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    padding: 2rem;
-    border-radius: 0.5rem;
+    align-items: center;
     background-color: var(--four);
-    font-family:'Roboto';
-    min-height:100vh;
 }
 
-.loginForm input {
-    padding:0.5rem;
-    border: 1px solid var(--primary);
-}
-.btn__enter{
-    color: var(--thirt);
-    height: 3rem;
-    font-size: 1.2rem;
-    width: 100%;
-    background-color: var(--primary);
+.loginContainer .headerForm {
+    width: 90%;
+    height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 40px 0px 50px;
+    background: var(--second);
     border-radius: 0.5rem;
+}
+
+.headerForm img {
+    width: 24px;
+    height: 24px;
+    margin-left: 30px;
+}
+
+.headerForm h4 {
+    margin: 0px 0px 0px 15px;
+    font-weight: 500;
+}
+
+.loginContainer .loginForm {
+    width: 90%;
+}
+
+.loginForm .formItem {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+.formItem label {
+    padding-bottom: .5rem;
+    font-weight: 400;
+}
+
+.formItem input {
+    padding: 0.5rem;
+    border: 1px solid var(--primary);
+    border-radius: 5px;
+}
+
+.loginBtn {
+    width: 100%;
+    height: 3rem;
+    color: var(--thirt);
+    font-size: 1.2rem;
+    background-color: var(--primary);
+    border-radius: 5px;
     border:0;
     transition:.3s;
 }
 
-.btn__enter:hover{
+.createAccountBtn:hover {
     font-size: 1.2rem;
     background-color: var(--second);
     color: var(--thirt);
 }
 
+@media(min-width: 576px) {
+    .loginContainer .headerForm {
+      width: 80%;
+      height: 50px;
+      margin: 40px 0px 20px;
+    }
 
-.user{
-    display: flex;
-    flex-direction: column;
+    .loginContainer .loginForm {
+      width: 80%;
+    }
 }
-input{
-    border-radius: 0.5rem;
-    height: 3rem;
+
+ @media(min-width: 768px) {
+    .loginContainer .loginForm {
+      width: 60%;
+    }
 }
-.btn__down{
-    padding-bottom: 6rem;
+
+@media(min-width: 1024px) {
+    .loginContainer .loginForm {
+      width: 50%;
+      background-color: var(--thirt);
+      padding: 2rem 3rem;
+      border-radius: .5rem;
+    }
+
+    .headerForm img {
+      width: 26px;
+      height: 26px;
+    }
+
+    .headerForm h4 {
+      margin: 0px 0px 0px 20px;
+      font-size: 18px;
+    }
+
+    .loginForm .formItem {
+      margin-bottom: 1.2rem;
+    }
+
+    .formItem label {
+      padding-bottom: 0.3rem;
+      font-size: 14px;
+    }
+
+    .formItem input {
+      height: 2.2rem;
+    }
+
+    .loginBtn {
+        margin-top: 30px;
+    }
 }
