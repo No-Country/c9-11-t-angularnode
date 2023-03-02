@@ -12,7 +12,7 @@ export default function EditProduct({ product }) {
     const apiUrl = import.meta.env.VITE_API_URL;
     const [open, setOpen] = useState(false);
     const { state: { hasChanges, categories }, dispatch } = useAppContext();
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
 
     const editProduct = async (id, product) => {
 
@@ -51,10 +51,12 @@ export default function EditProduct({ product }) {
         setOpen(false);
         // Validar que venga una imagen desde el formulario
         data.image.length > 0 ? data.image = data.image[0] : delete data.image;
+        reset();
         editProduct(product.id, data);
     };
 
     const handleClose = () => {
+        reset();
         setOpen(false);
     };
 

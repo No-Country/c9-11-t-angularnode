@@ -9,7 +9,7 @@ import { useAuth } from "../hooks/useAuth";
 
 
 export const Login = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors }} = useForm();
   const navigate = useNavigate();
   const { setIsLoading } = useAuth();
   const LOGIN_URL = import.meta.env.VITE_LOGIN_URL;
@@ -21,7 +21,7 @@ export const Login = () => {
         pending: "Iniciando sesión...",
         success: {
           render: (res) => {
-            console.log(res.data)
+           
             localStorage.setItem("token", res.data.data.token);
             navigate("/", {
               replace: true,
@@ -58,21 +58,23 @@ export const Login = () => {
 
       <form className="loginForm" onSubmit={handleSubmit(onFormSubmit, onErrors)}>
         <div className="formItem">
-          <label>Mail</label>
+          <label>Email</label>
           <input
             type="text"
-            placeholder="Enter email"
-            {...register("email")}
+            placeholder="Correo electrónico"
+            {...register("email", { required: true })}
           />
+          {errors.password && <span>Este campo es requerido</span>}
         </div>
 
         <div className="formItem">
           <label>Contraseña</label>
           <input
             type="password"
-            {...register("password")}
-            placeholder="password"
+            {...register("password", { required: true })}
+            placeholder="Contraseña"
           />
+          {errors.password && <span>Este campo es requerido</span>}
         </div>
 
         <button className="loginBtn" type="submit">Ingresar</button>

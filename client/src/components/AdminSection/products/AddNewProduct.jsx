@@ -13,7 +13,7 @@ export default function AddProduct() {
     const [image, setImage] = useState(null);
     const [open, setOpen] = useState(false);
     const { state: { hasChanges, categories }, dispatch } = useAppContext();
-    const { register, handleSubmit, watch } = useForm();
+    const { register, handleSubmit, watch, reset } = useForm();
 
     const addProduct = async (product) => {
 
@@ -53,6 +53,7 @@ export default function AddProduct() {
         // Validar que venga una imagen desde el formulario
         data.image.length > 0 ? data.image = data.image[0] : delete data.image;
         addProduct(data);
+        reset();
     };
 
 
@@ -84,6 +85,7 @@ export default function AddProduct() {
     };
 
     const closeByCancel = () => {
+        reset();
         setOpen(false);
     }
 
