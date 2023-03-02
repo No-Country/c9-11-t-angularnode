@@ -60,7 +60,7 @@ export const CartPage = () => {
                         <div className='cart_summary_buttons'>
                        <Link to="/products" style={{textDecoration:'none',color:'inherit'}}><Button variant='contained' sx={{background:'var(--second)',color:'#000', textTransform:'none',width:'100%','&:hover':{background:'var(--thirt)'}, borderRadius:'0.3rem'}} >Seguir comprando</Button> 
                        </Link> 
-                       <Link to="/cart/checkout" style={{textDecoration:'none',color:'inherit'}}> <Button variant='contained' sx={{background:'var(--primary)', textTransform:'none',width:'100%','&:hover':{background:'#c56b07'},borderRadius:'0.3rem'}} >Finalizar compra</Button> </Link>
+                       <Link to="/cart/checkout" style={{textDecoration:'none',color:'inherit'}}> <Button variant='contained' sx={{background:'var(--primary)',color:'#fff', textTransform:'none',width:'100%','&:hover':{background:'#c56b07'},borderRadius:'0.3rem'}} >Finalizar compra</Button> </Link>
                         </div>
 
                     </>

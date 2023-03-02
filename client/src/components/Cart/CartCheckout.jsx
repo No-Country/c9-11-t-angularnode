@@ -7,23 +7,22 @@ import { Button } from "@mui/material"
 import { useState } from "react"
 import paperIcon from '../../assets/icon/paper.png'
 import { useForm } from "react-hook-form";
-
+import { Navigate } from 'react-router-dom'
+import { CartOrderConfirmed } from "./CartOrderConfirmed";
 
 
 export const CartCheckout = () => {
 
     const [paymentData, setPaymentData] = useState({
-        paymentMethod: '',
-        deliveryMethod: '',
-        deliveryAddress: '',
-        personalData: '',
-        deliveryAclarations: '',
-        cart: []
+        paymentMethod: 'Efectivo',
+        deliveryMethod: 'Delivery',
     })
+
+    const [order, setOrder] = useState(null)
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const { isEmpty, items, cartTotal } = useCart()
+    const { isEmpty, items, cartTotal, emptyCart } = useCart()
 
     const buttonStyle = { textTransform: 'none', width: '100%', borderRadius: '0.45rem', };
     const buttonStyleChecked = { textTransform: 'none', width: '100%', borderRadius: '0.45rem', color: '#fff' };
@@ -44,9 +43,22 @@ export const CartCheckout = () => {
         })
     }
 
+
+    const onSubmit = (data) => {
+        const order = {
+            deliveryMethod: paymentData.deliveryMethod,
+            paymentMethod: paymentData.paymentMethod,
+            cart: items,
+            total: cartTotal,
+            ...data
+        }
+        emptyCart()
+        setOrder(order)
+    }
+
     return (
-        <>
-            <form className="cart_checkout" onSubmit={handleSubmit}>
+        <>  {order ? <Navigate to="/order-confirmed" replace state={{ order: order }} /> :
+            <form className="cart_checkout" onSubmit={handleSubmit(onSubmit)}>
                 <div className='cart_checkout_container'>
                     <div className='cart_checkout_title'>
                         <h5><CheckCircleOutlineIcon sx={{ color: 'var(--primary)', fontSize: '2em' }} />  Confirmación</h5>
@@ -92,7 +104,7 @@ export const CartCheckout = () => {
 
 
                     <div className="cart_checkout_title_2"    >
-                        <p><InfoOutlinedIcon color="primary"  /> Mi pago</p>
+                        <p><InfoOutlinedIcon color="primary" /> Mi pago</p>
                     </div>
                     <div className="cart_checkout_buttons">
 
@@ -114,7 +126,7 @@ export const CartCheckout = () => {
 
 
                     <div className="cart_checkout_title_2"    >
-                        <p><InfoOutlinedIcon color="primary"  /> Entrega del pedido</p>
+                        <p><InfoOutlinedIcon color="primary" /> Entrega del pedido</p>
                     </div>
                     <div className="cart_checkout_buttons">
 
@@ -137,42 +149,46 @@ export const CartCheckout = () => {
 
                     <div className="cart_checkout_inputs_container">
                         <div className="cart_checkout_title_2"    >
-                            <p><InfoOutlinedIcon color="primary"  /> Mis datos</p>
+                            <p><InfoOutlinedIcon color="primary" /> Mis datos</p>
                         </div>
 
                         {/*Render condicional si elige take away o delivery */}
                         {paymentData.deliveryMethod === 'TakeAway' ? (
-                            <div className="cart_checkout_input">
+                            <div className="cart_checkout_input" >
                                 <label htmlFor="personalData">Nombre y apellido</label>
-                                <input type="text" name="personalData" id="personalData" />
+                                <input type="text" name="personalData" id="personalData-name" className={`${errors.name_surname && "checkout_error_input"}`} {...register("name_surname", { required: true })} />
+                                {errors.name_surname && <p className="checkout_error_field">Este campo es obligatorio</p>}
 
                             </div>) : (
                             <div className="cart_checkout_input">
                                 <label htmlFor="personalDataName">Nombre y apellido:</label>
-                                <input type="text" name="personalDataName" id="personalData-name" />
+                                <input type="text" name="personalDataName" className={`${errors.name_surname && "checkout_error_input"}`} id="personalData-name" {...register("name_surname", { required: true })} />
+                                {errors.name_surname && <p className="checkout_error_field">Este campo es obligatorio</p>}
                                 <label htmlFor="personalData">Dirección:</label>
-                                <input type="text" name="personalDataAdress" id="personalData-address" />
-
+                                <input type="text" name="personalDataAdress" className={`${errors.address && "checkout_error_input"}`} id="personalData-address"  {...register("address", { required: true })} />
+                                {errors.address && <p className="checkout_error_field">Este campo es obligatorio</p>}
                             </div>
 
                         )}
-                    
-                    <div className="cart_checkout_title_2"    >
-                            <p><img src={paperIcon} alt="iconpaper"/>Aclaraciones</p>
-                    </div>
-                    <div className="cart_checkout_input_lg">
-                    <textarea type="text" rows="4" cols={'4'} name="personalDataAclarations" id="personalDataAclarations" />
-                    </div>
-                    
+
+                        <div className="cart_checkout_title_2"    >
+                            <p><img src={paperIcon} alt="iconpaper" />Aclaraciones</p>
+                        </div>
+                        <div className="cart_checkout_input_lg">
+                            <textarea type="text" rows="4" cols={'4'} name="personalDataAclarations" id="personalDataAclarations" {...register("aclarations")} />
+                        </div>
+
                     </div>
 
 
                     <div className="cart_checkout_final_button">
-                    <Button variant='contained' sx={{background:'var(--primary)',color:'#fff',fontSize:'1em', textTransform:'none',width:'100%','&:hover':{background:'#c56b07'},borderRadius:'0.3rem'}} type="submit"> Finalizar compra</Button> 
-                        </div>
+                        <Button variant='contained' sx={{ background: 'var(--primary)', color: '#fff', fontSize: '1em', textTransform: 'none', width: '100%', '&:hover': { background: '#c56b07' }, borderRadius: '0.3rem' }} type="submit"> Finalizar compra</Button>
+                    </div>
 
                 </div>
             </form>
+
+        }
         </>
     )
 }

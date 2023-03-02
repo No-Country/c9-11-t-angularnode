@@ -5,6 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { useMediaQuery } from '@mui/material';
 import { useCart } from "react-use-cart";
+import { useTheme } from '@mui/material/styles';
 
 import { ProductAddedConfirm } from "./ProductAddedConfirm";
 
@@ -12,12 +13,17 @@ import './ProductDetail.css'
 
 export const ProductDetail = ({ product, index }) => {
 
+ 
+    
+
     const [open, setOpen] = useState(false);
     const [openConfirm, setOpenConfirm] = useState(false);
     const [quantity, setQuantity] = useState(1)
 
     const { addItem } = useCart();
 
+    const screen = useMediaQuery("(min-width: 600px)");
+    const tablet = useMediaQuery("(min-width: 768px)");
 
     const handleOpen = () => {
         setOpen(true);
@@ -26,8 +32,6 @@ export const ProductDetail = ({ product, index }) => {
     const handleClose = () => {
         setOpen(false);
     };
-
-    const screen = useMediaQuery('(min-width:600px)');
 
     const style = {
         position: 'absolute',
@@ -94,18 +98,16 @@ export const ProductDetail = ({ product, index }) => {
                     <Grid container spacing={0} sx={{ color: 'white' }}>
 
                         {/* iMAGEN */}
-                        <Grid item xs={12} md={6} sx={{ p: '.1em' }}>
-                            <CardMedia
-                                component="img"
-                                height={screen ? "90%" : "240px"}
-                                image={product.imageUrl}
-                                alt={product.title}
-                                sx={{ borderRadius: '8px', objectFit: 'cover' }}
-                            />
+                        <Grid item xs={12} sm={6} md={6}  sx={{ minHeight:`${screen? "57vh": "27vh"}`, background:`url(${product.imageUrl})`, backgroundSize:'cover', borderRadius:'10px', backgroundPosition:'center' }}
+                        
+                        >
+                          
+                           
+                           
                         </Grid>
 
 
-                        <Grid item xs={12} md={6} sx={{ p: 1, color: 'white', display: 'flex', flexDirection: 'column' }}>
+                        <Grid item xs={12} sm={6} md={6} sx={{ p: 1, color: 'white', display: 'flex', flexDirection: 'column' }}>
 
 
                             <Grid item xs={12} md={12} sx={{ display: 'flex', flexDirection: 'row' }}>
@@ -133,16 +135,16 @@ export const ProductDetail = ({ product, index }) => {
 
 
                             {/* MORE WIDER SCREENS */}
+                            <Grid item xs={false}  md={12}></Grid>
+                            <Grid item xs={false} md={12}></Grid>
+
+
+
+
+
                             <Grid item xs={false} md={12}></Grid>
                             <Grid item xs={false} md={12}></Grid>
-
-
-
-
-
-                            <Grid item xs={false} md={12}></Grid>
-                            <Grid item xs={false} md={12}></Grid>
-                            <Grid item xs={false} md={12} sx={{ position: 'absolute', bottom: '2vh', minWidth: (screen ? '41vw' : '77.5vw'), display: 'flex', flexDirection: 'column' }}>
+                            <Grid item xs={false}  md={12} sx={{ position: 'absolute', bottom: '2vh', minWidth: (screen ? '41vw' : '77.5vw'), display: 'flex', flexDirection: 'column' }}>
 
                                 <Grid item xs={12} md={12} sx={{ marginTop: '1em', display: 'flex', flexDirection: 'row' }}>
                                     <Grid item xs={6} md={6}>

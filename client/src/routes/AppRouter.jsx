@@ -12,7 +12,10 @@ import { Products } from "../pages/Products";
 import { CartPage } from "../pages/CartPage";
 import { ProductsPage } from "../pages/ProductsPage";
 import { CartCheckout } from "../components/Cart/CartCheckout";
+import { CartOrderConfirmed } from "../components/Cart/CartOrderConfirmed";
+
 import { UserProfile } from "../pages/UserProfile";
+
 
 
 
@@ -33,6 +36,7 @@ export const AppRouter = () => {
         <Route path="/admin/categories" element={isAuthenticated ? <AdminCategoriesPage/> : <Home/>} />
         <Route path={'/cart'} element={<CartPage />} />
         <Route path={'/cart/checkout'} element={<CartCheckout />} />
+        <Route path={'/order-confirmed'} element={<CartOrderConfirmed />} />
         <Route path={'/profile'} element={<UserProfile />} />
         <Route path="/*" element={<Home />} />
       </Routes>
