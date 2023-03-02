@@ -214,6 +214,7 @@ class UsersService {
             }
 
         } catch (err: any) {
+            console.log(err)
             return ResponseParse(500, new ErrorService(err));
         }
     }
@@ -282,7 +283,9 @@ class UsersService {
             return ResponseParse(200, response);
 
         } catch (err: any) {
+            console.log(err)
             return ResponseParse(500, new ErrorService(err));
+            
         }
     }
 

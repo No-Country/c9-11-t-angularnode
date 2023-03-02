@@ -70,6 +70,19 @@
 
 }
 
+.checkout_error_field {
+    color: red;
+    font-size: 0.8rem;
+    font-weight: 100;
+    font-family:'Roboto';
+    font-weight:100;
+}
+
+.checkout_error_input{
+    border: solid 2px red;
+}
+
+
 
 
 .cart_checkout_title{
