@@ -39,6 +39,7 @@ export const Sections = () => {
       dispatch({ type: "SET_LOADING", payload: false })
     } catch (err) {
       console.log(err)
+      dispatch({ type: "SET_LOADING", payload: false })
       toast.error("Error al obtener categorías")
     }
   }

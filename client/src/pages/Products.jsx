@@ -32,6 +32,7 @@ export const Products = () => {
 
     } catch (err) {
       console.log(err)
+      dispatch({ type: "SET_LOADING", payload: false })
       toast.error("Error al obtener productos")
     }
   }
