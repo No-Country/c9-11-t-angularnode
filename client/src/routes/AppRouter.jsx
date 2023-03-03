@@ -13,11 +13,7 @@ import { CartPage } from "../pages/CartPage";
 import { ProductsPage } from "../pages/ProductsPage";
 import { CartCheckout } from "../components/Cart/CartCheckout";
 import { CartOrderConfirmed } from "../components/Cart/CartOrderConfirmed";
-
 import { UserProfile } from "../pages/UserProfile";
-
-
-
 
 export const AppRouter = () => {
   const { isAuthenticated } = useAuth();
