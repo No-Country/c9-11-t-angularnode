@@ -10,7 +10,7 @@
 .dashboardContainer .welcomeContainer {
     width: 100%;
     height: 300px;
-    background: linear-gradient(320deg, rgba(255,102,0,0.17690826330532217) 0%, rgba(242,150,11,0.6727065826330532) 100%), url('./src/assets/images/bg2.jpg');
+    background: linear-gradient(320deg, rgba(255,102,0,0.17690826330532217) 0%, rgba(242,150,11,0.6727065826330532) 100%), url('https://i.imgur.com/dEbqNVb.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
