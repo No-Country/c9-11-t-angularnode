@@ -32,8 +32,14 @@
     box-sizing: border-box;
     font-family: 'roboto';
 }
+
 body{
+    width: 100vw;
+    height: 100vh;
     background-image: url('../src/assets/images/Fondo.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 a{
@@ -50,13 +56,9 @@ main{
     gap:3rem;
 }
 
-
-
-
 .card_products{
     width:20rem;
     border: 1px solid var(--primary);
-    
     background-color: var(--second)!important;
     border-radius: 0.5rem;
     -webkit-font-smoothing: subpixel-antialiased;
