@@ -14,6 +14,9 @@ import { CartPage } from "../pages/CartPage";
 
 export const AppRouter = () => {
   const { isAuthenticated } = useAuth();
+
+
+
   return (
     <>
       <Routes>
@@ -27,7 +30,10 @@ export const AppRouter = () => {
         <Route path="/admin/products" element={isAuthenticated ? <AdminProductsPage/> : <Home/>} />
         <Route path={'/cart'} element={<CartPage />} />
         <Route path="/*" element={<Home />} />
-       
+        <Route path="products" element={<Products />} />
+        <Route path="contact" element={<Contact />} />
+        <Route path="createAccount" element={<CreateAccount />} />
+        <Route path="/*" element={<Home />} />
       </Routes>
     </>
   );

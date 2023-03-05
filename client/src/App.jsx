@@ -12,10 +12,18 @@ import { CartProvider } from "react-use-cart"
 
 
 
+import { AppRouter } from "./routes/AppRouter";
+import { Footer } from "./ui/Footer";
+import { Navar } from "./ui/Navar";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+
+
 export const App = () => {
 
   return (
     <>
+
       <AppProvider>
         <CartProvider>
           <AuthProvider>
@@ -29,5 +37,5 @@ export const App = () => {
       </AppProvider>
 
     </>
-  )
-}
+  );
+};
