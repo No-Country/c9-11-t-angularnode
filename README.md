@@ -27,6 +27,7 @@ Mortensen, Gabriela Esther - UX/UI Designer
 
 
 ## 🚀 Getting Started
+Backend:  
 1.  Install the dependencies using npm install.
 2. Create an enviroment file with this content:
 ```
@@ -42,7 +43,18 @@ CLOUDINARY_UPLOAD_PRESET=
  3. Run  ``` npx prisma generate  ``` and
  ``` npx prisma migrate dev ``` to create migrations and prisma client.
 
-4. Run ```npm run prisma``` and ```npm run seed``` to seed example data.
+4. Run ```npx prisma seed``` and ```npm run seed``` to seed example data.
 
+5. Run ```npm run dev``` 
+
+6. Running FronEnd server:
+
+```bash
+cd client
+# Install dependecies
+npm install
+npm run dev
+
+```
 
 
