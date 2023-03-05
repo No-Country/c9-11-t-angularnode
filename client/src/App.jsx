@@ -6,11 +6,18 @@ import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "./hooks/useAuth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'react-toastify/dist/ReactToastify.css';
-import { AppProvider} from "./context/AppContext";
+import { AppProvider } from "./context/AppContext";
 import { LoadingBar } from "./ui/LoadingBar";
 import { ThemeProvider } from "@mui/material/styles";
 import { CartProvider } from "react-use-cart"
 import { theme } from "./ui/Theme/theme";
+
+
+import { AppRouter } from "./routes/AppRouter";
+import { Footer } from "./ui/Footer";
+import { Navar } from "./ui/Navar";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 
 
 export const App = () => {

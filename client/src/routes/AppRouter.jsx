@@ -17,6 +17,9 @@ import { UserProfile } from "../pages/UserProfile";
 
 export const AppRouter = () => {
   const { isAuthenticated } = useAuth();
+
+
+
   return (
     <>
       <Routes>
