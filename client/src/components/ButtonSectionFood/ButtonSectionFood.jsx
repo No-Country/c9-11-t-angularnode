@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const ButtonSectionFood = ({ textButton }) => {
   // console.log(props.textButton);
 
-  const product = `products/${textButton}`;
+  const product = `/products/${textButton}`;
 
   return (
     <>
@@ -19,6 +19,7 @@ export const ButtonSectionFood = ({ textButton }) => {
             color: "black",
             border: "1px solid var(--primary)",
           }}
+          className="card_products"
         >
           {textButton}
         </Button>

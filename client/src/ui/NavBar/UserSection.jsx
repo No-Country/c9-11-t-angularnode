@@ -13,7 +13,7 @@ export const UserSection = () => {
             <Stack direction="horizontal" gap={3}>
                 
                 <div>Hola {user.name}! </div>
-                <img src={`../src/assets/profileIcon/${user.profileIcon}.png`} height={50} alt="profilePic" /> 
+                <img src={`/src/assets/profileIcon/${user.profileIcon}.png`} height={50} alt="profilePic" /> 
                 <NavLink to="profile" className="link">
                     Perfil 
                 </NavLink>
@@ -23,7 +23,7 @@ export const UserSection = () => {
             </Stack>
         </> : (<>
             <NavLink to="login" className="link">
-                Iniciar Sesión
+                Iniciar sesión
             </NavLink>
             <span className="link">|</span>{" "}
             <NavLink to="register" className="link">

@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import "./styles/login.css";
@@ -11,77 +9,76 @@ import { useAuth } from "../hooks/useAuth";
 
 
 export const Login = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors }} = useForm();
   const navigate = useNavigate();
   const { setIsLoading } = useAuth();
   const LOGIN_URL = import.meta.env.VITE_LOGIN_URL;
   const onFormSubmit = (data) => {
 
-    axios
-      .post(LOGIN_URL, data)
-      .then((res) => {
-        localStorage.setItem("token", res.data.token);
-        
-        toast.success("Bienvenido");
-        navigate("/", {
-          replace: true,
-        });
-        setIsLoading(true);
-
-      })
-      .catch((error) => {
-        console.log(error);
-
-        toast.error("Usuario o contraseña incorrectos");
-      });
+    toast.promise(
+      axios.post(LOGIN_URL, data),
+      {
+        pending: "Iniciando sesión...",
+        success: {
+          render: (res) => {
+           
+            localStorage.setItem("token", res.data.data.token);
+            navigate("/", {
+              replace: true,
+            });
+            setIsLoading(true);
+            return `Bienvenido`;
+          }
+        },
+        error: {
+          render: (error) => {
+            if (error.data.response.status === 401) {
+              return `Usuario o contraseña incorrectos`;
+            } else {
+              console.log(error)
+              return `Error al iniciar sesión.`;
+            }
+          }
+        }
+      }
+    )
 
   }
-
-
 
   const onErrors = (errors) => {
     console.log(errors);
   };
 
-
-
-  const [show, setShow] = useState(true);
-
-  const handleClose = () => setShow(!show);
-
   return (
-
-    <form className="loginForm" onSubmit={handleSubmit(onFormSubmit, onErrors)}>
-
-
-      <div className="login__title">
-        <h5> <img src={userlogo} alt="userlogo" /> Iniciar sesión</h5>
+    <div className="loginContainer">
+      <div className="headerForm">
+        <img src={ userlogo } alt="userlogo" />
+        <h4>Iniciar sesión</h4>
       </div>
 
-      <div className="user">
-        <label>Mail</label>
-        <input
-          type="text"
-          placeholder="Enter email"
-          {...register("email")}
-        />
-      </div>
-      <div className="user">
-        <label>Contraseña</label>
-        <input
-          type="password"
-          {...register("password")}
-          placeholder="password"
-        />
-      </div>
+      <form className="loginForm" onSubmit={handleSubmit(onFormSubmit, onErrors)}>
+        <div className="formItem">
+          <label>Email</label>
+          <input
+            type="text"
+            placeholder="Correo electrónico"
+            {...register("email", { required: true })}
+          />
+          {errors.password && <span>Este campo es requerido</span>}
+        </div>
 
+        <div className="formItem">
+          <label>Contraseña</label>
+          <input
+            type="password"
+            {...register("password", { required: true })}
+            placeholder="Contraseña"
+          />
+          {errors.password && <span>Este campo es requerido</span>}
+        </div>
 
-      <button className="btn__enter" type="submit">
-        Ingresar
-      </button>
-
-
-    </form>
-
+        <button className="loginBtn" type="submit">Ingresar</button>
+      </form>
+    </div>
   );
 };

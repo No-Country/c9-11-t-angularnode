@@ -4,9 +4,9 @@
     
     padding: 3rem;
     background-color: var(--four);
-    border-radius: 0.5rem;
+  
     min-height:100vh;
-    box-shadow: 0 0 0.5rem 0.1rem rgba(0,0,0,0.2);
+    
     font-family:'Roboto';
 }
 
