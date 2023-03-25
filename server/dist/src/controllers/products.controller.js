@@ -13,7 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const product_service_1 = __importDefault(require("../services/product.service"));
+const user_service_1 = __importDefault(require("../services/user.service"));
 const productService = new product_service_1.default();
+const userService = new user_service_1.default();
 const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const query = req.query;
     let page = query.page;
@@ -23,12 +25,22 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     if (limit == null)
         limit = 10;
     let categoryId = query.categoryId;
+    let showAll = query.showAll;
+    if (showAll == null)
+        showAll = false;
+    let isAdmin = false;
+    if (showAll) {
+        if (req.body.userId != null) {
+            isAdmin = yield userService.isAdmin(req.body.userId);
+        }
+    }
+    const showAllProducts = showAll && isAdmin;
     let products;
     if (categoryId == null) {
-        products = yield productService.getProducts(limit, page);
+        products = yield productService.getProducts(limit, page, !showAllProducts);
     }
     else {
-        products = yield productService.getProductsByCategory(parseInt(categoryId), limit, page);
+        products = yield productService.getProductsByCategory(parseInt(categoryId), limit, page, !isAdmin);
     }
     res.status(products.statusCode).json(products.response);
 });
@@ -44,6 +56,8 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     res.status(statusCode).json(response);
 });
 const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    if (req.files)
+        req.body.image = req.files.image;
     let { statusCode, response } = yield productService.updateProduct(parseInt(req.params.id), req.body);
     res.status(statusCode).json(response);
 });

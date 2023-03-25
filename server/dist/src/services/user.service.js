@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const users_1 = __importDefault(require("../repository/users"));
+const role_1 = __importDefault(require("../repository/role"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jwt_service_1 = __importDefault(require("./jwt.service"));
 const response_parser_1 = __importDefault(require("../utils/response.parser"));
@@ -61,6 +62,40 @@ class UsersService {
             }
             catch (err) {
                 return new error_service_1.default(err);
+            }
+        });
+    }
+    updateMe(id, user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                //prevent user from changing role
+                if (user.roleId) {
+                    delete user.roleId;
+                }
+                //prevent user from changing isActive
+                if (user.isActive) {
+                    delete user.isActive;
+                }
+                // if password is not null, hash it
+                if (user.password) {
+                    user.password = yield this.hashPassword(user.password);
+                }
+                const usr = yield users_1.default.update(id, user);
+                const Role = yield role_1.default.findOne({ id: usr.roleId });
+                const usrMe = {
+                    id: usr.id,
+                    name: usr.name,
+                    email: usr.email,
+                    phone: usr.phone,
+                    address: usr.address,
+                    //@ts-ignore
+                    roleName: Role.name.toUpperCase(),
+                    profileIcon: usr.profileIcon
+                };
+                return (0, response_parser_1.default)(200, usrMe);
+            }
+            catch (err) {
+                return (0, response_parser_1.default)(500, new error_service_1.default(err)); //{statusCode:500, message: err.message};
             }
         });
     }
@@ -125,6 +160,38 @@ class UsersService {
     /**
      *
      */
+    getMe(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const usr = yield users_1.default.findOne({ id: id, isActive: true });
+                if (usr == null) {
+                    return (0, response_parser_1.default)(404, "User not found");
+                }
+                else {
+                    const Role = yield role_1.default.findOne({ id: usr.roleId });
+                    if (Role != null) {
+                        const usrMe = {
+                            id: usr.id,
+                            name: usr.name,
+                            email: usr.email,
+                            phone: usr.phone,
+                            address: usr.address,
+                            roleName: Role.name.toUpperCase(),
+                            profileIcon: usr.profileIcon
+                        };
+                        return (0, response_parser_1.default)(200, usrMe);
+                    }
+                    else {
+                        return (0, response_parser_1.default)(404, "Role not found");
+                    }
+                }
+            }
+            catch (err) {
+                console.log(err);
+                return (0, response_parser_1.default)(500, new error_service_1.default(err));
+            }
+        });
+    }
     /**
      * Register a new user from the website
      * @param user
@@ -180,6 +247,7 @@ class UsersService {
                 return (0, response_parser_1.default)(200, response);
             }
             catch (err) {
+                console.log(err);
                 return (0, response_parser_1.default)(500, new error_service_1.default(err));
             }
         });

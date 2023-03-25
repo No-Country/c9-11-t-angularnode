@@ -30,6 +30,11 @@ const getById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { statusCode, response } = yield service.getById(parseInt(req.params.id));
     res.status(statusCode).json(response);
 });
+const getBySection = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const param = req.params.section;
+    const { statusCode, response } = yield service.getBySection(param);
+    res.status(statusCode).json(response);
+});
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { statusCode, response } = yield service.create(req.body);
     res.status(statusCode).json(response);
@@ -42,5 +47,5 @@ const remove = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { statusCode, response } = yield service.delete(parseInt(req.params.id));
     res.status(statusCode).json(response);
 });
-exports.default = { getAll, getById, create, update, remove };
+exports.default = { getAll, getById, getBySection, create, update, remove };
 //# sourceMappingURL=categories.controller.js.map

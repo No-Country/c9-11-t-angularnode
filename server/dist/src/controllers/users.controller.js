@@ -35,6 +35,17 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { statusCode, response } = yield service.create(req.body);
     res.status(statusCode).json(response);
 });
+const getMe = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.body.userId;
+    const { statusCode, response } = yield service.getMe(id);
+    res.status(statusCode).json(response);
+});
+const updateMe = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.body.userId;
+    delete req.body.userId;
+    const { statusCode, response } = yield service.updateMe(id, req.body);
+    return res.status(statusCode).json(response);
+});
 const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = parseInt(req.params.id);
     const { statusCode, response } = yield service.update(id, req.body);
@@ -54,5 +65,5 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { statusCode, response } = yield service.signUp(req.body);
     res.status(statusCode).json(response);
 });
-exports.default = { getAll, getById, create, update, remove, login, register };
+exports.default = { getAll, getById, create, getMe, updateMe, update, remove, login, register };
 //# sourceMappingURL=users.controller.js.map

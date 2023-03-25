@@ -55,6 +55,23 @@ class CategoriesService {
         });
     }
     /**
+     * Find categories by section
+     */
+    getBySection(section) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const res = yield categories_1.default.findAll({ section: section }, {}, {}, { select: { id: true, name: true, description: true, section: true } });
+                if (res == null) {
+                    return (0, response_parser_1.default)(404, `${section} doesn't have categories`);
+                }
+                return (0, response_parser_1.default)(200, res);
+            }
+            catch (err) {
+                return (0, response_parser_1.default)(500, new error_service_1.default(err));
+            }
+        });
+    }
+    /**
      * Create a new category
      * @param {CategoriesCreateInput} category
      * @returns {Promise<Categories>}

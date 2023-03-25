@@ -54,6 +54,18 @@ const updateUserValidator = [
     (0, express_validator_1.body)('email').optional().isEmail().withMessage('Invalid email'),
     (0, express_validator_1.body)('password').optional().isString().withMessage('Password must be a string'),
     (0, express_validator_1.body)('password').optional().isStrongPassword(strongPasswordOptions).withMessage('Password must contain at least one uppercase letter, one lowercase letter, one number and be at least 5 characters long'),
+    (0, express_validator_1.body)('profileIcon').optional().isIn(['ICON_1', 'ICON_2', 'ICON_3', 'ICON_4', 'ICON_5', 'ICON_6', 'ICON_7', 'ICON_8', 'ICON_9']),
+    (0, express_validator_1.body)('name').optional().isString(),
+    (0, express_validator_1.body)('phone').optional().isString(),
+    (0, express_validator_1.body)('address').optional().isString(),
+    errorHandler_validator_1.errorHandler
+];
+const updateMeValidator = [
+    (0, express_validator_1.body)('email').isEmail().optional().withMessage('Invalid email'),
+    (0, express_validator_1.body)('password').optional().isString().withMessage('Password must be a string'),
+    (0, express_validator_1.body)('password').optional().isStrongPassword(strongPasswordOptions).withMessage('Password must contain at least one uppercase letter, one lowercase letter, one number and be at least 5 characters long'),
+    (0, express_validator_1.body)('profileIcon').optional().isIn(['ICON_1', 'ICON_2', 'ICON_3', 'ICON_4', 'ICON_5', 'ICON_6', 'ICON_7', 'ICON_8', 'ICON_9'])
+        .withMessage('Invalid profile icon, must be one of ICON_1 to ICON_9'),
     (0, express_validator_1.body)('name').optional().isString(),
     (0, express_validator_1.body)('phone').optional().isString(),
     (0, express_validator_1.body)('address').optional().isString(),
@@ -68,6 +80,7 @@ exports.default = {
     loginUserValidator,
     createUserValidator,
     getAllUsersValidator,
+    updateMeValidator,
     getUserByIdValidator,
     updateUserValidator,
     deleteUserValidator

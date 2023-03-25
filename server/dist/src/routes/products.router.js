@@ -8,8 +8,9 @@ const products_controller_1 = __importDefault(require("../controllers/products.c
 const products_validator_1 = __importDefault(require("../middlewares/validations/products.validator"));
 const auth_middleware_1 = __importDefault(require("../middlewares/security/auth.middleware"));
 const isAdmin_middleware_1 = __importDefault(require("../middlewares/security/isAdmin.middleware"));
+const optional_auth_middleware_1 = __importDefault(require("../middlewares/security/optional.auth.middleware"));
 const productsRouter = (0, express_1.Router)();
-productsRouter.get('/', products_validator_1.default.getAllProductsValidator, products_controller_1.default.getProducts);
+productsRouter.get('/', products_validator_1.default.getAllProductsValidator, optional_auth_middleware_1.default, products_controller_1.default.getProducts);
 productsRouter.get('/:id', products_validator_1.default.getProductByIdValidator, products_controller_1.default.getProduct);
 productsRouter.use(auth_middleware_1.default, isAdmin_middleware_1.default);
 productsRouter.post('/', products_validator_1.default.createProductValidator, products_controller_1.default.createProduct);

@@ -12,10 +12,11 @@ const isAdmin_middleware_1 = __importDefault(require("../middlewares/security/is
 const categoriesRouter = (0, express_1.Router)();
 //GET all categories
 categoriesRouter.get('/', categories_validator_1.default.getAllCategoriesValidator, categories_controller_1.default.getAll);
-//Protect all routes after this middleware
-categoriesRouter.use(auth_middleware_1.default, isAdmin_middleware_1.default);
 //GET a category by id
 categoriesRouter.get('/:id', categories_validator_1.default.getByIdCategoryValidator, categories_controller_1.default.getById);
+categoriesRouter.get('/section/:section', categories_validator_1.default.getCategoriesBySectionValidator, categories_controller_1.default.getBySection);
+//Protect all routes after this middleware
+categoriesRouter.use(auth_middleware_1.default, isAdmin_middleware_1.default);
 //POST a new category
 categoriesRouter.post('/', categories_validator_1.default.createCategoryValidator, categories_controller_1.default.create);
 //PUT update a category

@@ -34,11 +34,17 @@ class ProductsService {
       * @param { number } page
       * @returns { Promise<ProductRead[]> }
     **/
-    getProducts(limit, page) {
+    getProducts(limit, page, isActive) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const products = yield products_1.default.findAll({}, {}, { limit: limit, page: page });
-                return (0, response_parser_1.default)(200, products);
+                if (isActive) {
+                    const products = yield products_1.default.findAll({ isActive: true }, {}, { limit: limit, page: page }, { include: { category: { select: { name: true, section: true } } } });
+                    return (0, response_parser_1.default)(200, products);
+                }
+                else {
+                    const products = yield products_1.default.findAll({}, {}, { limit: limit, page: page }, { include: { category: { select: { name: true, section: true } } } });
+                    return (0, response_parser_1.default)(200, products);
+                }
             }
             catch (error) {
                 return (0, response_parser_1.default)(500, `Error in product service: ${error.message}`);
@@ -72,11 +78,17 @@ class ProductsService {
      * @param page
      * @returns
      */
-    getProductsByCategory(categoryId, limit, page) {
+    getProductsByCategory(categoryId, limit, page, isActive) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const repoResponse = yield products_1.default.findAll({ categoryId: categoryId }, {}, { limit: limit, page: page });
-                return (0, response_parser_1.default)(200, repoResponse);
+                if (isActive) {
+                    const repoResponse = yield products_1.default.findAll({ categoryId: categoryId, isActive: true }, {}, { limit: limit, page: page }, { include: { category: { select: { name: true, section: true } } } });
+                    return (0, response_parser_1.default)(200, repoResponse);
+                }
+                else {
+                    const repoResponse = yield products_1.default.findAll({ categoryId: categoryId }, {}, { limit: limit, page: page }, { include: { category: { select: { name: true, section: true } } } });
+                    return (0, response_parser_1.default)(200, repoResponse);
+                }
             }
             catch (error) {
                 return (0, response_parser_1.default)(500, `Error in get products by category service: ${error.message}`);
@@ -118,7 +130,18 @@ class ProductsService {
     updateProduct(id, product) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const updatedProduct = yield products_1.default.update(id, product);
+                const { image } = product, productData = __rest(product, ["image"]);
+                if (image) {
+                    const uploadedResult = yield cloudinary_1.default.uploader.upload(image.tempFilePath, {
+                        upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
+                    });
+                    productData.imageUrl = uploadedResult.secure_url;
+                }
+                productData.categoryId = parseInt(productData.categoryId);
+                productData.price = parseFloat(productData.price);
+                productData.discount = parseFloat(productData.discount);
+                productData.isActive = productData.isActive == 'true' ? true : false;
+                const updatedProduct = yield products_1.default.update(id, productData);
                 return (0, response_parser_1.default)(200, updatedProduct);
             }
             catch (error) {
